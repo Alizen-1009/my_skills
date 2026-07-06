@@ -1,0 +1,4 @@
+interface:
+  display_name: "Personal Skill Authoring"
+  short_description: "Create and maintain personal Codex skills"
+  default_prompt: "Use $personal-skill-authoring to add a new reusable skill to my personal skills repo."

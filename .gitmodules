@@ -1,0 +1,9 @@
+[submodule "external/mattpocock-skills"]
+	path = external/mattpocock-skills
+	url = https://github.com/mattpocock/skills
+[submodule "external/addyosmani-agent-skills"]
+	path = external/addyosmani-agent-skills
+	url = https://github.com/addyosmani/agent-skills
+[submodule "external/obra-superpowers"]
+	path = external/obra-superpowers
+	url = https://github.com/obra/superpowers

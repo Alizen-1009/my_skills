@@ -1,0 +1,4 @@
+interface:
+  display_name: "Find Your Unknowns"
+  short_description: "Surface blindspots and unclear intent before and during a task"
+  default_prompt: "Use $find-unknowns to help me discover what I don't yet know about this task before we implement."

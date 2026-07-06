@@ -1,0 +1,38 @@
+{
+  "sources": [
+    {
+      "id": "local",
+      "kind": "local",
+      "path": "skills",
+      "recursive": false,
+      "enabled": true
+    },
+    {
+      "id": "mattpocock-skills",
+      "kind": "git-submodule",
+      "repo": "https://github.com/mattpocock/skills",
+      "path": "external/mattpocock-skills",
+      "skills_path": "skills",
+      "recursive": true,
+      "enabled": true
+    },
+    {
+      "id": "addyosmani-agent-skills",
+      "kind": "git-submodule",
+      "repo": "https://github.com/addyosmani/agent-skills",
+      "path": "external/addyosmani-agent-skills",
+      "skills_path": "skills",
+      "recursive": false,
+      "enabled": true
+    },
+    {
+      "id": "obra-superpowers",
+      "kind": "git-submodule",
+      "repo": "https://github.com/obra/superpowers",
+      "path": "external/obra-superpowers",
+      "skills_path": "skills",
+      "recursive": true,
+      "enabled": true
+    }
+  ]
+}
