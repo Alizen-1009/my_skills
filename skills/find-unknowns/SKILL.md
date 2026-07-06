@@ -1,6 +1,6 @@
 ---
 name: find-unknowns
-description: Run a structured discovery workflow to surface what the user does not yet know about a task before and during implementation — blindspots, ambiguous requirements, and unstated preferences — so the agent is not silently guessing intent. Use at the start of an unfamiliar or large task, when a plan keeps shifting, when the user cannot describe what they want, or before shipping a big change. Based on Thariq's "find your unknowns" methodology.
+description: Run a structured discovery workflow to surface what the user does not yet know about a task before and during implementation — blindspots, ambiguous requirements, and unstated preferences — then hand off to the right follow-up skill such as interview, prototype, research, spec, planning, design, verification, or review. Use at the start of an unfamiliar or large task, when a plan keeps shifting, when the user cannot describe what they want, or before shipping a big change. Based on Thariq's "find your unknowns" methodology.
 ---
 
 # Find Your Unknowns
@@ -29,6 +29,32 @@ Before doing anything, decide which unknowns dominate, and pick techniques accor
 - Direction is clear, details are fuzzy → **Interview the user** + **Draft a plan** (known unknowns).
 
 Always give context about who the user is and what they already know — it sharpens every technique below.
+
+## Hand Off to Other Skills
+
+Use this skill as a discovery layer, not as the whole workflow. After naming the unknowns, pick the smallest follow-up skill that resolves the next uncertainty.
+
+| Unknown or next need | Hand off to | Use when |
+| --- | --- | --- |
+| The user has not fully expressed intent | `interview-me` | Ask one question at a time until the underlying need is clear. |
+| The plan needs pressure-testing | `grill-me` or `grill-with-docs` | Stress-test assumptions; use the docs variant when ADRs or glossary updates should be captured. |
+| External facts are missing | `research` or `source-driven-development` | Gather primary-source evidence before deciding. |
+| The user will know it when they see it | `prototype` | Show concrete options with fake data before committing to implementation. |
+| The work needs a formal spec | `spec-driven-development` | Convert discovered constraints and decisions into a PRD/spec. |
+| The work is too large to execute directly | `planning-and-task-breakdown` or `writing-plans` | Break the aligned spec into ordered, verifiable slices. |
+| Interface boundaries are unclear | `api-and-interface-design` or `design-an-interface` | Decide API, module, or type contracts. |
+| Codebase shape is the uncertainty | `codebase-design` or `improve-codebase-architecture` | Find the right module boundary, abstraction, or refactor direction. |
+| UI behavior or visual quality is uncertain | `frontend-ui-engineering` | Turn chosen prototypes or preferences into production UI work. |
+| A bug is present but the cause is unclear | `systematic-debugging` or `diagnosing-bugs` | Reproduce, isolate, hypothesize, instrument, and fix. |
+| Implementation spans independent tasks | `subagent-driven-development` or `dispatching-parallel-agents` | Split work only when tasks do not share state or sequential dependencies. |
+| Work appears complete | `verification-before-completion`, `requesting-code-review`, or `code-review` | Verify evidence, then review before claiming completion or merging. |
+
+Before handing off, summarize:
+
+- What is known now.
+- What remains unknown.
+- Which decision would change the implementation.
+- Which artifact should carry forward: prototype, spec, plan, implementation notes, or acceptance report.
 
 ## Techniques by Phase
 

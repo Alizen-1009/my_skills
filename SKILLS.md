@@ -42,7 +42,7 @@
 | `doubt-driven-development` | https://github.com/addyosmani/agent-skills | 对重要决策做 fresh-context 对抗式复核，适合高风险或不熟悉代码场景。 |
 | `edit-article` | https://github.com/mattpocock/skills | 编辑文章，优化结构、表达清晰度和行文紧凑度。 |
 | `executing-plans` | https://github.com/obra/superpowers | 在已有书面实现计划时，按检查点执行计划。 |
-| `find-unknowns` | local | 在大任务或模糊任务开始前找出未知点、盲区、含糊需求和未声明偏好。 |
+| `find-unknowns` | local | 在大任务或模糊任务开始前找出未知点、盲区、含糊需求和未声明偏好，并把结果交给访谈、原型、规格、计划、设计、验证或 review 类 skills。 |
 | `finishing-a-development-branch` | https://github.com/obra/superpowers | 实现完成且测试通过后，帮助决定合并、开 PR 或清理分支。 |
 | `frontend-ui-engineering` | https://github.com/addyosmani/agent-skills | 构建生产级前端 UI，关注布局、交互、状态管理和视觉质量。 |
 | `git-guardrails-claude-code` | https://github.com/mattpocock/skills | 给 Claude Code 设置 git 安全 hooks，阻止危险命令如 push、reset --hard、clean。 |
