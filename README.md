@@ -4,113 +4,48 @@ Personal Codex skills and linked upstream skill collections.
 
 ## Layout
 
-- `skills/` - my own installable Codex skills.
-- `skill-sources.json` - manifest of local and upstream skill sources to install.
-- `external/mattpocock-skills` - linked upstream repo: `https://github.com/mattpocock/skills`.
-- `external/addyosmani-agent-skills` - linked upstream repo: `https://github.com/addyosmani/agent-skills`.
-- `scripts/` - repository maintenance helpers.
+- `skills/` — my own installable Codex skills.
+- `external/` — upstream skill packs as git submodules (e.g. `mattpocock/skills`, `addyosmani/agent-skills`). References, not copies.
+- `skill-sources.json` — manifest of skill sources to install.
+- `scripts/` — maintenance and install helpers.
 
-The `external/` repositories are git submodules. They are references to upstream projects, not copied source. The installer reads `skill-sources.json`, so adding another open source skill pack should not require editing installer code.
+## Setup
 
-## Clone With External Sources
+Clone with submodules and install everything:
 
 ```bash
 git clone --recurse-submodules git@github.com:Alizen-1009/my_skills.git
-```
-
-If the repository was cloned without submodules:
-
-```bash
-git submodule update --init --recursive
-```
-
-## Update External Sources
-
-```bash
-git submodule update --remote --merge
-git status --short
-```
-
-Commit `.gitmodules` and the submodule pointer changes when you want this repo to track newer upstream commits.
-
-## Add An Open Source Skill Source
-
-Use `scripts/add-skill-source.py` to add a third-party repo as a submodule and register it in `skill-sources.json`:
-
-```bash
-python3 scripts/add-skill-source.py obra-superpowers https://github.com/obra/superpowers --recursive
-./scripts/bootstrap.sh --dry-run
-```
-
-Common source shapes:
-
-- Repo contains many skill folders under `skills/`: use the defaults.
-- Repo contains nested skill folders under `skills/`: add `--recursive`.
-- Repo root is a single skill folder with `SKILL.md`: use `--skills-path .`.
-- Repo has one skill at a specific subdirectory: use `--skills-path path/to/skill`.
-
-Examples:
-
-```bash
-python3 scripts/add-skill-source.py obra-superpowers https://github.com/obra/superpowers --recursive
-python3 scripts/add-skill-source.py fockus-find-skill https://github.com/fockus/claude-skill-find-skill --skills-path .
-python3 scripts/add-skill-source.py vercel-skills https://github.com/vercel-labs/skills --skills-path skills/find-skills
-```
-
-After checking the dry-run output, install:
-
-```bash
+cd my_skills
 ./scripts/bootstrap.sh
 ```
 
-## Add A Personal Skill
+Already cloned without submodules? Run `git submodule update --init --recursive` first.
 
-Put new skills under `skills/<skill-name>/`. Each skill must include:
+Restart Codex after installing or updating skills.
 
-```text
-skills/<skill-name>/
-  SKILL.md
-  agents/openai.yaml  # recommended
+By default the installer symlinks into `${CODEX_HOME:-$HOME/.codex}/skills`, so re-running after a `git pull` updates everything in place. Use `--mode copy` for a standalone install, or `--force` to replace existing skills.
+
+## Update upstream sources
+
+```bash
+git submodule update --remote --merge
 ```
 
-Optional directories inside a skill:
+Commit the submodule pointer changes to track newer upstream commits.
 
-- `scripts/` for deterministic helpers.
-- `references/` for longer docs loaded only when needed.
-- `assets/` for templates, images, fonts, or other files used in outputs.
+## Add a skill
 
-Validate local skills with:
+**Personal skill** — create `skills/<skill-name>/` with a `SKILL.md` (and optionally `agents/openai.yaml`, `scripts/`, `references/`, `assets/`). Validate with:
 
 ```bash
 python3 scripts/validate-skills.py
 ```
 
-List the skills that would be installed:
+**Upstream source** — add a third-party repo as a submodule and register it:
 
 ```bash
-python3 scripts/install-skills.py --list
+python3 scripts/add-skill-source.py <name> <repo-url> [--recursive | --skills-path <path>]
+./scripts/bootstrap.sh --dry-run   # preview, then run without --dry-run to install
 ```
 
-## Install Skills Into Codex
-
-After cloning this repository on a new machine, initialize the linked upstream repositories and install all discovered skills:
-
-```bash
-./scripts/bootstrap.sh
-```
-
-Restart Codex after installing or updating a skill.
-
-By default the installer creates symlinks in `${CODEX_HOME:-$HOME/.codex}/skills`, so pulling this repo and rerunning the script updates installed skills without copying files around.
-
-For a standalone install that does not depend on this repo path staying in place:
-
-```bash
-./scripts/bootstrap.sh --mode copy
-```
-
-If a destination skill already exists, the installer skips it. To replace existing installs:
-
-```bash
-./scripts/bootstrap.sh --force
-```
+Pick the path flag by repo shape: default for `skills/*`, `--recursive` for nested skill folders, `--skills-path .` when the repo root is a single skill, or `--skills-path <dir>` for one skill in a subdirectory.
