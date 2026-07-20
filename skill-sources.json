@@ -24,6 +24,15 @@
       "skills_path": "skills",
       "recursive": false,
       "enabled": true
+    },
+    {
+      "id": "anthropics-skills",
+      "kind": "git-submodule",
+      "repo": "https://github.com/anthropics/skills",
+      "path": "external/anthropics-skills",
+      "skills_path": "skills/frontend-design",
+      "recursive": false,
+      "enabled": true
     }
   ]
 }
