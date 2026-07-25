@@ -2,14 +2,14 @@
 
 本清单基于 `python3 scripts/install-skills.py --list` 生成，并将用途说明整理为中文摘要。
 
-当前可安装 skills 总数：**81**。
+当前可安装 skills 总数：**77**。
 
 ## 来源统计
 
 | 来源 | 数量 |
 | --- | ---: |
 | https://github.com/addyosmani/agent-skills | 24 |
-| https://github.com/anthropics/skills | 17 |
+| https://github.com/anthropics/skills | 13 |
 | https://github.com/mattpocock/skills | 38 |
 | local | 2 |
 
@@ -17,10 +17,8 @@
 
 | Skill | 来源 | 作用 |
 | --- | --- | --- |
-| `algorithmic-art` | https://github.com/anthropics/skills | 用 p5.js 做生成式和算法艺术，支持随机种子与交互参数探索。 |
 | `api-and-interface-design` | https://github.com/addyosmani/agent-skills | 设计稳定 API、模块边界和类型契约，适合 REST、GraphQL、前后端接口和公共接口设计。 |
 | `ask-matt` | https://github.com/mattpocock/skills | 帮你判断当前任务应该使用哪个 Matt Pocock skill 或 workflow。 |
-| `brand-guidelines` | https://github.com/anthropics/skills | 给产出物套用 Anthropic 官方品牌色和字体规范。 |
 | `browser-testing-with-devtools` | https://github.com/addyosmani/agent-skills | 用 Chrome DevTools MCP 做真实浏览器测试、DOM 检查、控制台错误和网络请求分析。 |
 | `canvas-design` | https://github.com/anthropics/skills | 生成海报、平面设计等静态视觉作品，输出 .png 或 .pdf。 |
 | `ci-cd-and-automation` | https://github.com/addyosmani/agent-skills | 设置或修改 CI/CD、质量门禁、自动化测试和部署流程。 |
@@ -54,7 +52,6 @@
 | `implement` | https://github.com/mattpocock/skills | 根据 PRD 或 issue 集合执行实现工作。 |
 | `improve-codebase-architecture` | https://github.com/mattpocock/skills | 扫描代码库架构改进机会，生成可视化报告并逐项追问。 |
 | `incremental-implementation` | https://github.com/addyosmani/agent-skills | 用小步提交和可验证切片交付功能，避免一次性大改。 |
-| `internal-comms` | https://github.com/anthropics/skills | 按公司常用格式撰写内部沟通材料：状态报告、周报、FAQ、故障复盘等。 |
 | `interview-me` | https://github.com/addyosmani/agent-skills | 对不清楚的需求做一问一答访谈，直到用户真实意图足够明确。 |
 | `loop-me` | https://github.com/mattpocock/skills | 在当前 workspace 内反复追问你想构建的 workflow 规格。 |
 | `mcp-builder` | https://github.com/anthropics/skills | 构建高质量 MCP server，用 Python FastMCP 或 Node/TypeScript SDK 封装外部 API。 |
@@ -90,7 +87,6 @@
 | `ubiquitous-language` | https://github.com/mattpocock/skills | 从对话中提取 DDD 统一语言术语表，标记歧义并建议标准术语。 |
 | `using-agent-skills` | https://github.com/addyosmani/agent-skills | 发现并调用合适的 agent skills，适合会话开始或选择 workflow 时使用。 |
 | `wayfinder` | https://github.com/mattpocock/skills | 把超大工作拆成调查 tickets，逐个解决直到路线清晰。 |
-| `web-artifacts-builder` | https://github.com/anthropics/skills | 用 React、Tailwind、shadcn/ui 构建复杂多组件的 claude.ai HTML artifact。 |
 | `webapp-testing` | https://github.com/anthropics/skills | 用 Playwright 驱动本地 web 应用做交互测试、截图和浏览器日志排查。 |
 | `wizard` | https://github.com/mattpocock/skills | 生成交互式 bash 向导，引导人工完成第三方设置、迁移或状态切换。 |
 | `writing-beats` | https://github.com/mattpocock/skills | 把原始材料组织成文章节拍和叙事路径。 |

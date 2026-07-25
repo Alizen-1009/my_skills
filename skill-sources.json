@@ -32,7 +32,13 @@
       "path": "external/anthropics-skills",
       "skills_path": "skills",
       "recursive": false,
-      "enabled": true
+      "enabled": true,
+      "exclude": [
+        "web-artifacts-builder",
+        "algorithmic-art",
+        "brand-guidelines",
+        "internal-comms"
+      ]
     }
   ]
 }
