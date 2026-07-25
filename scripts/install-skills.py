@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install this repository's skills into Codex's skills directory."""
+"""Install this repository's skills into every agent harness found on this machine."""
 
 from __future__ import annotations
 
@@ -29,11 +29,42 @@ class Source:
     exclude: frozenset[str]
 
 
-def codex_skills_dir() -> Path:
-    codex_home = os.environ.get("CODEX_HOME")
-    if codex_home:
-        return Path(codex_home).expanduser() / "skills"
-    return Path.home() / ".codex" / "skills"
+@dataclass(frozen=True)
+class Target:
+    id: str
+    home: Path
+    skills_dir: Path
+    restart_hint: str
+
+
+def agent_home(env_var: str, default: str) -> Path:
+    override = os.environ.get(env_var)
+    if override:
+        return Path(override).expanduser()
+    return Path.home() / default
+
+
+def known_targets() -> list[Target]:
+    """Agent harnesses this repo can install into, in install order."""
+    codex_home = agent_home("CODEX_HOME", ".codex")
+    pi_home = agent_home("PI_CODING_AGENT_DIR", ".pi/agent")
+    claude_home = Path.home() / ".claude"
+    return [
+        Target("codex", codex_home, codex_home / "skills", "Restart Codex"),
+        Target("pi", pi_home, pi_home / "skills", "Restart pi"),
+        Target("claude", claude_home, claude_home / "skills", "Restart Claude Code"),
+    ]
+
+
+def detect_targets(requested: list[str] | None) -> tuple[list[Target], list[str]]:
+    """Resolve --agent names, or auto-detect harnesses whose home directory exists."""
+    targets = {target.id: target for target in known_targets()}
+    if requested:
+        unknown = [name for name in requested if name not in targets]
+        if unknown:
+            return [], unknown
+        return [targets[name] for name in dict.fromkeys(requested)], []
+    return [target for target in targets.values() if target.home.is_dir()], []
 
 
 def repo_root() -> Path:
@@ -211,13 +242,17 @@ def install_skill(skill: Skill, dest_dir: Path, mode: str, force: bool, dry_run:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Install local and linked upstream skills into Codex.",
+        description="Install local and linked upstream skills into every detected agent harness.",
     )
     parser.add_argument(
         "--dest",
         type=Path,
-        default=codex_skills_dir(),
-        help="Destination skills directory. Defaults to ${CODEX_HOME:-~/.codex}/skills.",
+        help="Install into one explicit directory instead of the detected harnesses.",
+    )
+    parser.add_argument(
+        "--agent",
+        help="Comma-separated harnesses to install into: codex, pi, claude. "
+        "Defaults to every harness whose home directory exists.",
     )
     parser.add_argument(
         "--mode",
@@ -241,6 +276,9 @@ def main() -> int:
         help="List discovered skills with source and frontmatter description.",
     )
     args = parser.parse_args()
+    if args.dest and args.agent:
+        print("Use either --dest or --agent, not both.", file=sys.stderr)
+        return 1
 
     root = repo_root()
     skills, warnings = discover_all(root)
@@ -256,12 +294,32 @@ def main() -> int:
     for warning in warnings:
         print(f"[WARN] {warning}")
 
-    for skill in sorted(skills, key=lambda item: item.name):
-        print(install_skill(skill, args.dest.expanduser(), args.mode, args.force, args.dry_run))
+    if args.dest:
+        targets = [Target("dest", args.dest.expanduser(), args.dest.expanduser(), "Restart the agent")]
+    else:
+        requested = [name.strip() for name in args.agent.split(",") if name.strip()] if args.agent else None
+        targets, unknown = detect_targets(requested)
+        if unknown:
+            valid = ", ".join(target.id for target in known_targets())
+            print(f"Unknown agent(s): {', '.join(unknown)}. Valid: {valid}", file=sys.stderr)
+            return 1
+        if not targets:
+            valid = ", ".join(f"{t.id} ({t.home})" for t in known_targets())
+            print("No agent harness detected. Looked for: " + valid, file=sys.stderr)
+            print("Pass --dest <dir> to install somewhere else.", file=sys.stderr)
+            return 1
+
+    sorted_skills = sorted(skills, key=lambda item: item.name)
+    for target in targets:
+        dest_dir = target.skills_dir
+        print()
+        print(f"=== {target.id} -> {dest_dir}")
+        for skill in sorted_skills:
+            print(install_skill(skill, dest_dir, args.mode, args.force, args.dry_run))
 
     print()
-    print(f"Destination: {args.dest.expanduser()}")
-    print("Restart Codex to pick up installed or updated skills.")
+    for target in targets:
+        print(f"{target.restart_hint} to pick up installed or updated skills in {target.skills_dir}.")
     return 0
 
 
