@@ -1,0 +1,9 @@
+{
+  "packages": [
+    {
+      "id": "pi-goal-runtime",
+      "source": "https://github.com/DXM666/pi-goal-runtime@3d2c671d2eca5ccd574619074a91a6c992b50265",
+      "enabled": true
+    }
+  ]
+}

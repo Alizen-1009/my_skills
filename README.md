@@ -1,12 +1,13 @@
 # my_skills
 
-Personal agent skills and linked upstream skill collections. Installs into Codex, pi, and Claude Code.
+Personal agent skills, linked upstream skill collections, and managed Pi packages. Installs into Codex, pi, and Claude Code.
 
 ## Layout
 
 - `skills/` — my own installable skills.
 - `external/` — upstream skill packs as git submodules (e.g. `mattpocock/skills`, `addyosmani/agent-skills`). References, not copies.
 - `skill-sources.json` — manifest of skill sources to install.
+- `pi-packages.json` — pinned Pi packages to install when Pi is targeted.
 - `scripts/` — maintenance and install helpers.
 
 ## Setup
@@ -40,6 +41,18 @@ The installer auto-detects every agent harness whose home directory exists and i
 ```
 
 Skills install as symlinks into this repo, so re-running after a `git pull` updates everything in place. Existing entries the installer did not create are reported as `[SKIP]` and left alone — pass `--force` to replace them. Use `--mode copy` for a standalone install.
+
+When Pi is among the selected targets, bootstrap also installs the pinned packages in `pi-packages.json`. Package refs are intentionally pinned; update the manifest explicitly after reviewing a newer revision.
+
+## Managed Pi packages
+
+The current package set includes `pi-goal-runtime`, which adds persistent `/goal` commands and automatic continuation for long-running Pi tasks. Install or reconcile Pi resources with:
+
+```bash
+./scripts/bootstrap.sh --agent pi
+```
+
+After package changes, restart Pi or run `/reload`.
 
 ## Update upstream sources
 
