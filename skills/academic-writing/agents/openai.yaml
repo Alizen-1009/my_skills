@@ -1,0 +1,4 @@
+interface:
+  display_name: "Academic Writing"
+  short_description: "Draft and revise evidence-aware academic prose"
+  default_prompt: "Use $academic-writing to draft or revise this manuscript text without overstating the evidence."

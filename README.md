@@ -9,6 +9,7 @@ Personal agent skills, linked upstream skill collections, and managed Pi package
 - `skill-sources.json` — manifest of skill sources to install.
 - `pi-packages.json` — pinned Pi packages to install when Pi is targeted.
 - `scripts/` — maintenance and install helpers.
+- `THIRD_PARTY.md` — upstream projects consulted when adapting personal skills.
 
 ## Setup
 

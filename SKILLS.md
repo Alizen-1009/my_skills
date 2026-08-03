@@ -2,7 +2,7 @@
 
 本清单基于 `python3 scripts/install-skills.py --list` 生成，并将用途说明整理为中文摘要；Skills 按来源仓库分组排列。
 
-当前可安装 skills 总数：**77**。
+当前可安装 skills 总数：**80**。
 
 ## 来源统计
 
@@ -11,7 +11,7 @@
 | https://github.com/addyosmani/agent-skills | 24 |
 | https://github.com/anthropics/skills | 13 |
 | https://github.com/mattpocock/skills | 38 |
-| local | 2 |
+| local | 5 |
 
 ## Skills 列表
 
@@ -92,5 +92,8 @@
 | `writing-fragments` | https://github.com/mattpocock/skills | 挖掘和收集写作碎片，暂不强加结构。 |
 | `writing-great-skills` | https://github.com/mattpocock/skills | 编写和编辑高质量 skills 的参考原则。 |
 | `writing-shape` | https://github.com/mattpocock/skills | 把素材逐段塑造成完整文章。 |
+| `academic-peer-review` | local | 对论文、投稿前初稿、修改稿和审稿回复做基于证据的同行评审，按严重程度给出可定位、可执行的问题。 |
+| `academic-writing` | local | 中文优先地撰写和修改学术论文、学位论文、摘要、章节及审稿回复，并保持主张与证据边界。 |
 | `find-unknowns` | local | 在大任务或模糊任务开始前找出未知点、盲区、含糊需求和未声明偏好，并把结果交给访谈、原型、规格、计划、设计、验证或 review 类 skills。 |
+| `literature-review` | local | 设计并记录文献检索、筛选、证据矩阵、引用核验以及叙述性、范围性或系统性综述。 |
 | `personal-skill-authoring` | local | 在这个个人 skills 仓库中新增、维护、适配和校验 Codex skills。 |

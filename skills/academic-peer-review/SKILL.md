@@ -1,0 +1,175 @@
+---
+name: academic-peer-review
+description: Conduct evidence-based academic manuscript review, pre-submission self-review, methodology review, statistical review, revision verification, and reviewer-response audit. Use whenever the user asks to peer review, referee, critique, assess, stress-test, or check whether a paper or revision is publication-ready. Default to a read-only diagnostic review; do not rewrite the manuscript unless the user separately asks for revision.
+---
+
+# Academic Peer Review
+
+## Overview
+
+Review a manuscript as a diagnostic instrument, not as a performance. Identify consequential problems, connect each finding to manuscript evidence, and propose the smallest useful remedy. Do not claim to represent a real journal, editor, ethics board, or domain expert whose qualifications are not available.
+
+Keep review and revision separate. The default output is findings and recommendations; use `academic-writing` only when the user asks to implement changes.
+
+## Establish the Review Contract
+
+Determine:
+
+- manuscript type, discipline, stage, and target venue if known;
+- requested depth: quick assessment, full review, methodology focus, statistical focus, or revision verification;
+- materials available: manuscript, supplement, data, code, reporting checklist, reviewer comments, and response letter;
+- whether access is complete or limited to excerpts.
+
+State material limitations before drawing conclusions. Do not infer that an absent supplement, dataset, or section does not exist when it may simply not have been provided.
+
+## Evidence Standard for Findings
+
+Every major finding should contain:
+
+1. **Location**: section, page, paragraph, table, figure, equation, or quoted phrase.
+2. **Observation**: what the manuscript actually says or omits.
+3. **Consequence**: why this affects validity, reproducibility, interpretation, or presentation.
+4. **Requested action**: a concrete and proportionate fix or clarification.
+
+Separate verified defects from questions and suggestions. Do not turn a stylistic preference into a validity claim.
+
+Use severity consistently:
+
+- **Critical**: threatens research integrity, participant safety, legal or ethical compliance, or makes the central evidence unusable.
+- **Major**: could change the main conclusion, method validity, reproducibility, or interpretation.
+- **Minor**: localized clarity, reporting, consistency, or presentation issue that does not alter the central conclusion.
+- **Suggestion**: optional improvement, not a condition for validity.
+
+## Review Workflow
+
+### 1. Reconstruct the paper's own case
+
+Before criticizing, summarize neutrally:
+
+- research question and claimed gap;
+- design, method, data, and comparator;
+- principal results;
+- claimed contribution;
+- stated limitations.
+
+Check that the abstract, main text, figures, tables, and conclusion tell the same story.
+
+### 2. Review through distinct lenses
+
+Perform the relevant lenses independently, without pretending that one model is multiple independent human reviewers.
+
+#### Contribution and framing
+
+- Is the problem meaningful and the gap supported rather than asserted?
+- Is the contribution specific, bounded, and distinguishable from implementation detail?
+- Are novelty and generality claims proportional to the literature coverage and evidence?
+
+#### Methodology and design
+
+- Does the design answer the stated question?
+- Are assumptions, variables, units, inclusion criteria, controls, baselines, and procedures explicit?
+- Are leakage, confounding, selection bias, measurement bias, and alternative explanations addressed?
+- Could a qualified reader reproduce the analysis from the description and supplied artifacts?
+
+#### Statistics and quantitative evidence
+
+When applicable, check:
+
+- whether the test or model matches the design and data structure;
+- independence, distributional assumptions, multiplicity, missing data, and stopping rules;
+- effect sizes, uncertainty intervals, sample-size rationale, and sensitivity analysis;
+- consistency among text, tables, figures, and supplementary results;
+- whether “significant” is used statistically and whether practical significance is discussed.
+
+Do not recompute results without the necessary data and code. Label plausibility checks separately from verified calculations.
+
+#### Results and interpretation
+
+- Does every conclusion trace to reported evidence?
+- Are causal statements justified by the design?
+- Are null, negative, and contradictory results represented fairly?
+- Are subgroup, ablation, robustness, or generalization claims adequately supported?
+- Do figures show units, uncertainty, legends, sample definitions, and readable labels?
+
+#### Literature and citations
+
+- Are relevant competing explanations and contrary findings represented?
+- Does each citation support the attached claim rather than merely share a topic?
+- Are preprints, published versions, corrections, and retractions distinguished?
+
+Use `literature-review` when citations need external verification. Do not manufacture missing references during review.
+
+#### Ethics, transparency, and reproducibility
+
+As applicable, check consent or approval statements, conflicts, funding, data/code availability, AI-use disclosure, image manipulation risk, privacy, dual use, and discipline-specific reporting requirements. Flag a missing statement; do not infer misconduct without evidence.
+
+#### Writing and presentation
+
+Check organization, terminology, symbol consistency, internal cross-references, and whether the prose permits accurate interpretation. Keep copy-editing subordinate to scientific issues unless language blocks comprehension.
+
+### 3. Challenge the strongest interpretation
+
+Stress-test the central claim:
+
+- What plausible alternative explanation remains?
+- What evidence would falsify the claim?
+- Which conclusion depends most heavily on an unverified assumption?
+- Does the paper generalize beyond its sample, dataset, apparatus, or operating conditions?
+
+Then perform a fairness pass: remove criticisms already answered by the manuscript and acknowledge genuine strengths or safeguards.
+
+### 4. Verify a revision when requested
+
+For a re-review, build a traceability table:
+
+| Reviewer concern | Author response | Manuscript change | Evidence checked | Status |
+| --- | --- | --- | --- | --- |
+
+Use statuses such as `resolved`, `partially resolved`, `not resolved`, or `cannot verify`. Check the manuscript change itself rather than accepting the response letter's description. Also look for regressions or claim drift introduced by the revision.
+
+## Output Format
+
+Use this default structure unless the user or venue asks for another:
+
+```markdown
+# Review summary
+[Neutral summary of question, method, evidence, and contribution]
+
+# Overall assessment
+[Most important strengths, limitations, and confidence bounded by available materials]
+
+# Major findings
+## M1. [Finding title]
+- Severity: Major
+- Location: ...
+- Observation: ...
+- Consequence: ...
+- Requested action: ...
+
+# Minor findings
+## m1. [Finding title]
+...
+
+# Questions for the authors
+...
+
+# Recommendation
+[Conditional recommendation and rationale, if requested]
+
+# Review limitations
+[Materials not reviewed, expertise limits, and checks not performed]
+```
+
+Do not produce a numeric score or accept/reject recommendation unless the user or review form requires it. When one is required, explain that it is advisory and tie it to explicit criteria rather than false precision.
+
+## Final Quality Check
+
+Before delivery, verify that:
+
+- each major criticism is grounded in a location and consequence;
+- severities reflect impact rather than tone;
+- findings do not contradict one another;
+- the review distinguishes missing reporting from flawed execution;
+- no unavailable data, source, or calculation is described as inspected;
+- recommendations are feasible and proportionate;
+- confidential or unpublished material is not sent to external services without the user's awareness.

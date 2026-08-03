@@ -1,0 +1,4 @@
+interface:
+  display_name: "Academic Peer Review"
+  short_description: "Review manuscripts with evidence-linked findings"
+  default_prompt: "Use $academic-peer-review to assess this manuscript and prioritize evidence-linked major and minor findings."

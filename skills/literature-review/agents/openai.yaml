@@ -1,0 +1,4 @@
+interface:
+  display_name: "Literature Review"
+  short_description: "Search, verify, map, and synthesize academic evidence"
+  default_prompt: "Use $literature-review to build a traceable literature search and evidence synthesis for this question."
