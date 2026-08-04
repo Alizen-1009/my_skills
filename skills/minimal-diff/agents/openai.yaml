@@ -1,0 +1,4 @@
+interface:
+  display_name: "Minimal Diff"
+  short_description: "Audit patch scope, size, and reversibility"
+  default_prompt: "Use $minimal-diff to audit whether this patch is the smallest correct, reviewable, and reversible change."

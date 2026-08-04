@@ -14,7 +14,14 @@
       "path": "external/mattpocock-skills",
       "skills_path": "skills",
       "recursive": true,
-      "enabled": true
+      "enabled": true,
+      "exclude": [
+        "design-an-interface",
+        "qa",
+        "request-refactor-plan",
+        "tdd",
+        "ubiquitous-language"
+      ]
     },
     {
       "id": "addyosmani-agent-skills",

@@ -29,3 +29,13 @@ The upstream implementation is not bundled because it is Claude Code-specific, c
 - Ideas adapted: concise Chinese-first academic-writing routing, preservation of technical notation, and explicit labeling of supplied evidence, inference, and suggestions.
 
 The upstream Office and scientific reference bundles are not included. Some embedded files use licenses that are more restrictive than the repository-level MIT notice, and the Office functionality already exists in this environment's dedicated `docx`, `pptx`, `pdf`, and `xlsx` skills.
+
+## Agent Skills Garden — Minimal Diff
+
+- Project: [dhruvinrsoni/agentskills-garden](https://github.com/dhruvinrsoni/agentskills-garden)
+- Source skill: [`minimal-diff`](https://github.com/dhruvinrsoni/agentskills-garden/tree/c94cf3f3d7463e7e77eaa08b54d04195a24cd533/skills/100-engineering/25-pragmatism/minimal-diff)
+- Reviewed revision: `c94cf3f3d7463e7e77eaa08b54d04195a24cd533`
+- License: Apache-2.0
+- Ideas adapted: explicit diff envelopes, drive-by edit detection, proportional diff-size checks, concern separation, and reversibility review.
+
+The local version is a compact rewrite for this repository. It removes dependencies on the upstream constitution, scratchpad, auditor, and other Agent Skills Garden runtime conventions.

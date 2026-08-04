@@ -41,13 +41,13 @@ Use this skill as a discovery layer, not as the whole workflow. After naming the
 | External facts are missing | `research` or `source-driven-development` | Gather primary-source evidence before deciding. |
 | The user will know it when they see it | `prototype` | Show concrete options with fake data before committing to implementation. |
 | The work needs a formal spec | `spec-driven-development` | Convert discovered constraints and decisions into a PRD/spec. |
-| The work is too large to execute directly | `planning-and-task-breakdown` or `writing-plans` | Break the aligned spec into ordered, verifiable slices. |
-| Interface boundaries are unclear | `api-and-interface-design` or `design-an-interface` | Decide API, module, or type contracts. |
+| The work is too large to execute directly | `planning-and-task-breakdown` | Break the aligned spec into ordered, verifiable slices. |
+| Interface boundaries are unclear | `api-and-interface-design` | Decide API, module, or type contracts. |
 | Codebase shape is the uncertainty | `codebase-design` or `improve-codebase-architecture` | Find the right module boundary, abstraction, or refactor direction. |
 | UI behavior or visual quality is uncertain | `frontend-ui-engineering` | Turn chosen prototypes or preferences into production UI work. |
-| A bug is present but the cause is unclear | `systematic-debugging` or `diagnosing-bugs` | Reproduce, isolate, hypothesize, instrument, and fix. |
-| Implementation spans independent tasks | `subagent-driven-development` or `dispatching-parallel-agents` | Split work only when tasks do not share state or sequential dependencies. |
-| Work appears complete | `verification-before-completion`, `requesting-code-review`, or `code-review` | Verify evidence, then review before claiming completion or merging. |
+| A bug is present but the cause is unclear | `debugging-and-error-recovery` or `diagnosing-bugs` | Use the first for general failures and the second for hard bugs or performance regressions. |
+| Implementation spans several tasks | `planning-and-task-breakdown` then `incremental-implementation` | Identify independent slices, then implement and verify them incrementally. |
+| Work appears complete | `code-review-and-quality` or `code-review` | Use the first as a general quality gate; use the second for a fixed-point Standards + Spec review. |
 
 Before handing off, summarize:
 

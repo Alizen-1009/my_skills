@@ -2,7 +2,7 @@
 
 本清单基于 `python3 scripts/install-skills.py --list` 生成，并将用途说明整理为中文摘要；Skills 按来源仓库分组排列。
 
-当前可安装 skills 总数：**80**。
+当前可安装 skills 总数：**77**。
 
 ## 来源统计
 
@@ -10,8 +10,8 @@
 | --- | ---: |
 | https://github.com/addyosmani/agent-skills | 24 |
 | https://github.com/anthropics/skills | 13 |
-| https://github.com/mattpocock/skills | 38 |
-| local | 5 |
+| https://github.com/mattpocock/skills | 33 |
+| local | 7 |
 
 ## Skills 列表
 
@@ -58,7 +58,6 @@
 | `claude-handoff` | https://github.com/mattpocock/skills | 把当前上下文交接给新的后台 agent 继续处理。 |
 | `code-review` | https://github.com/mattpocock/skills | 从指定基线开始做双轴代码审查：代码标准和需求符合度。 |
 | `codebase-design` | https://github.com/mattpocock/skills | 用深模块、清晰边界和可测试接口的方式改进代码库设计。 |
-| `design-an-interface` | https://github.com/mattpocock/skills | 用多个并行 agent 生成不同接口设计方案，适合探索模块 API。 |
 | `diagnosing-bugs` | https://github.com/mattpocock/skills | 针对困难 bug、性能回退和失败行为做诊断循环。 |
 | `domain-modeling` | https://github.com/mattpocock/skills | 建立和打磨领域模型、术语表和统一语言。 |
 | `edit-article` | https://github.com/mattpocock/skills | 编辑文章，优化结构、表达清晰度和行文紧凑度。 |
@@ -73,19 +72,15 @@
 | `migrate-to-shoehorn` | https://github.com/mattpocock/skills | 把测试里的 `as` 类型断言迁移到 `@total-typescript/shoehorn`。 |
 | `obsidian-vault` | https://github.com/mattpocock/skills | 搜索、创建和整理 Obsidian vault 笔记和 wikilinks。 |
 | `prototype` | https://github.com/mattpocock/skills | 做一次性原型，验证状态模型、业务逻辑或 UI 方向是否合理。 |
-| `qa` | https://github.com/mattpocock/skills | 交互式 QA 会话，把用户反馈的问题整理成 GitHub issues。 |
-| `request-refactor-plan` | https://github.com/mattpocock/skills | 通过访谈生成小步重构计划，并归档为 issue。 |
 | `research` | https://github.com/mattpocock/skills | 针对技术问题查阅高可信来源，并把结果整理为 Markdown。 |
 | `resolving-merge-conflicts` | https://github.com/mattpocock/skills | 处理正在进行的 merge 或 rebase 冲突。 |
 | `scaffold-exercises` | https://github.com/mattpocock/skills | 创建课程练习目录、题目、答案和说明，并保证能通过 lint。 |
 | `setup-matt-pocock-skills` | https://github.com/mattpocock/skills | 为 Matt Pocock skills 初始化 issue tracker、triage 标签和文档布局。 |
 | `setup-pre-commit` | https://github.com/mattpocock/skills | 设置 Husky、lint-staged、格式化、类型检查和测试型 pre-commit。 |
-| `tdd` | https://github.com/mattpocock/skills | 测试驱动开发，适合用户明确要求 red-green-refactor 或集成测试。 |
 | `teach` | https://github.com/mattpocock/skills | 在当前 workspace 内教用户某个新技能或概念。 |
 | `to-issues` | https://github.com/mattpocock/skills | 把计划、spec 或 PRD 拆成可独立领取的 issue。 |
 | `to-prd` | https://github.com/mattpocock/skills | 把当前对话综合成 PRD 并发布到 issue tracker。 |
 | `triage` | https://github.com/mattpocock/skills | 对 issues 和外部 PR 做分类、验证、追问和 agent-ready brief。 |
-| `ubiquitous-language` | https://github.com/mattpocock/skills | 从对话中提取 DDD 统一语言术语表，标记歧义并建议标准术语。 |
 | `wayfinder` | https://github.com/mattpocock/skills | 把超大工作拆成调查 tickets，逐个解决直到路线清晰。 |
 | `wizard` | https://github.com/mattpocock/skills | 生成交互式 bash 向导，引导人工完成第三方设置、迁移或状态切换。 |
 | `writing-beats` | https://github.com/mattpocock/skills | 把原始材料组织成文章节拍和叙事路径。 |
@@ -96,4 +91,6 @@
 | `academic-writing` | local | 中文优先地撰写和修改学术论文、学位论文、摘要、章节及审稿回复，并保持主张与证据边界。 |
 | `find-unknowns` | local | 在大任务或模糊任务开始前找出未知点、盲区、含糊需求和未声明偏好，并把结果交给访谈、原型、规格、计划、设计、验证或 review 类 skills。 |
 | `literature-review` | local | 设计并记录文献检索、筛选、证据矩阵、引用核验以及叙述性、范围性或系统性综述。 |
+| `minimal-diff` | local | 在改动范围扩张或交付高风险 patch 前，审计 diff 是否保持最小、可审查且可逆。 |
 | `personal-skill-authoring` | local | 在这个个人 skills 仓库中新增、维护、适配和校验 Codex skills。 |
+| `tdd` | local | 兼容仍调用 `/tdd` 的工作流，并统一转发到 `test-driven-development`，不维护第二套 TDD 规则。 |
