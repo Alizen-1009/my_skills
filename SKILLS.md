@@ -2,14 +2,14 @@
 
 本清单基于 `python3 scripts/install-skills.py --list` 生成，并将用途说明整理为中文摘要；Skills 按来源仓库分组排列。
 
-当前可安装 skills 总数：**77**。
+当前可安装 skills 总数：**76**。
 
 ## 来源统计
 
 | 来源 | 数量 |
 | --- | ---: |
 | https://github.com/addyosmani/agent-skills | 24 |
-| https://github.com/anthropics/skills | 13 |
+| https://github.com/anthropics/skills | 12 |
 | https://github.com/mattpocock/skills | 33 |
 | local | 7 |
 
@@ -42,7 +42,6 @@
 | `test-driven-development` | https://github.com/addyosmani/agent-skills | 针对功能、bug 和行为改动，用测试证明代码正确。 |
 | `using-agent-skills` | https://github.com/addyosmani/agent-skills | 发现并调用合适的 agent skills，适合会话开始或选择 workflow 时使用。 |
 | `canvas-design` | https://github.com/anthropics/skills | 生成海报、平面设计等静态视觉作品，输出 .png 或 .pdf。 |
-| `claude-api` | https://github.com/anthropics/skills | Claude API 与 Anthropic SDK 参考：模型 id、价格、参数、流式、工具调用、缓存。 |
 | `doc-coauthoring` | https://github.com/anthropics/skills | 以结构化流程与用户共同撰写文档、提案、技术规格和决策文档。 |
 | `docx` | https://github.com/anthropics/skills | 创建、读取、编辑 Word 文档和模板，支持修订、批注和格式保留。 |
 | `frontend-design` | https://github.com/anthropics/skills | 为新 UI 或改版提供有辨识度的视觉方向、排版和审美决策。 |
