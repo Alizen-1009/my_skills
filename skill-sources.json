@@ -47,6 +47,15 @@
         "internal-comms",
         "claude-api"
       ]
+    },
+    {
+      "id": "karpathy-guidelines",
+      "kind": "git-submodule",
+      "repo": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "path": "external/karpathy-guidelines",
+      "skills_path": "skills",
+      "recursive": false,
+      "enabled": true
     }
   ]
 }
