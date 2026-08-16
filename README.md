@@ -5,11 +5,24 @@ Personal agent skills, linked upstream skill collections, and managed Pi package
 ## Layout
 
 - `skills/` — my own installable skills.
-- `external/` — upstream skill packs as git submodules (e.g. `mattpocock/skills`, `addyosmani/agent-skills`). References, not copies.
+- `external/` — upstream skill packs tracked as git submodules. References, not copies.
 - `skill-sources.json` — manifest of skill sources to install.
 - `pi-packages.json` — pinned Pi packages to install when Pi is targeted.
 - `scripts/` — maintenance and install helpers.
+- `SKILLS.md` — catalog of installable skills grouped by source.
 - `THIRD_PARTY.md` — upstream projects consulted when adapting personal skills.
+
+## Skill sources
+
+Bootstrap installs enabled skills from the local collection and these upstream repositories:
+
+- [mattpocock/skills](https://github.com/mattpocock/skills)
+- [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)
+- [anthropics/skills](https://github.com/anthropics/skills)
+- [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
+- [powerycy/goutoujunshi](https://github.com/powerycy/goutoujunshi)
+
+See `skill-sources.json` for enabled sources, selected paths, and exclusions. Run `python3 scripts/install-skills.py --list` for the authoritative installable-skill list.
 
 ## Setup
 
