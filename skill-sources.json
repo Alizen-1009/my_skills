@@ -56,6 +56,15 @@
       "skills_path": "skills",
       "recursive": false,
       "enabled": true
+    },
+    {
+      "id": "goutoujunshi",
+      "kind": "git-submodule",
+      "repo": "https://github.com/powerycy/goutoujunshi.git",
+      "path": "external/goutoujunshi",
+      "skills_path": ".",
+      "recursive": false,
+      "enabled": true
     }
   ]
 }
