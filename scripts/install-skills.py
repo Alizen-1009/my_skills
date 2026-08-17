@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install this repository's skills into every agent harness found on this machine."""
+"""Install this repository's skills into a supported agent harness."""
 
 from __future__ import annotations
 
@@ -57,14 +57,13 @@ def known_targets() -> list[Target]:
 
 
 def detect_targets(requested: list[str] | None) -> tuple[list[Target], list[str]]:
-    """Resolve --agent names, or auto-detect harnesses whose home directory exists."""
+    """Resolve --agent names, defaulting to Pi when none are provided."""
     targets = {target.id: target for target in known_targets()}
-    if requested:
-        unknown = [name for name in requested if name not in targets]
-        if unknown:
-            return [], unknown
-        return [targets[name] for name in dict.fromkeys(requested)], []
-    return [target for target in targets.values() if target.home.is_dir()], []
+    requested = requested or ["pi"]
+    unknown = [name for name in requested if name not in targets]
+    if unknown:
+        return [], unknown
+    return [targets[name] for name in dict.fromkeys(requested)], []
 
 
 def repo_root() -> Path:
@@ -242,7 +241,7 @@ def install_skill(skill: Skill, dest_dir: Path, mode: str, force: bool, dry_run:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Install local and linked upstream skills into every detected agent harness.",
+        description="Install local and linked upstream skills into a supported agent harness.",
     )
     parser.add_argument(
         "--dest",
@@ -252,7 +251,7 @@ def main() -> int:
     parser.add_argument(
         "--agent",
         help="Comma-separated harnesses to install into: codex, pi, claude. "
-        "Defaults to every harness whose home directory exists.",
+        "Defaults to pi.",
     )
     parser.add_argument(
         "--mode",
@@ -302,11 +301,6 @@ def main() -> int:
         if unknown:
             valid = ", ".join(target.id for target in known_targets())
             print(f"Unknown agent(s): {', '.join(unknown)}. Valid: {valid}", file=sys.stderr)
-            return 1
-        if not targets:
-            valid = ", ".join(f"{t.id} ({t.home})" for t in known_targets())
-            print("No agent harness detected. Looked for: " + valid, file=sys.stderr)
-            print("Pass --dest <dir> to install somewhere else.", file=sys.stderr)
             return 1
 
     sorted_skills = sorted(skills, key=lambda item: item.name)
