@@ -1,5 +1,18 @@
 # AGENTS.md
 
+## Repository purpose
+
+This repository is the portable, secret-free source of truth for the owner's Pi coding-agent setup across machines. It pins the Pi CLI and Pi packages, merges portable configuration from `pi-config/`, and installs personal plus curated upstream skills.
+
+Preserve these boundaries when changing it:
+
+- Keep reproducible Pi settings in `pi-config/settings.patch.json`; it merges into local `settings.json` and must not manage the dynamic `packages` list or machine-specific skill paths.
+- Keep extension configuration under `pi-config/` using paths relative to `~/.pi/agent/`.
+- Pin Pi and package versions in `pi-packages.json`; bootstrap must remain safe and idempotent.
+- Keep personal skills under `skills/`; filter upstream submodule skills through `skill-sources.json` rather than editing upstream copies.
+- Never commit `auth.json`, sessions, trust decisions, caches, literal API keys, cookies, or machine-specific private paths. Credentials remain a manual new-machine `/login` step.
+- Verify installer behavior with the Python test suite and validate personal skills before finishing.
+
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.

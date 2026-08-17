@@ -1,32 +1,52 @@
 # my_skills
 
-Personal agent skills, linked upstream skill collections, and managed Pi packages. Installs into Codex, pi, and Claude Code.
+A portable, secret-free personal configuration repository for the [Pi coding agent](https://pi.dev/). It keeps my Pi CLI version, settings, extensions, packages, and curated skills reproducible across development machines, while still supporting skill installation for Codex and Claude Code.
 
-## Layout
+## Purpose
 
-- `skills/` — my own installable skills.
-- `external/` — upstream skill packs tracked as git submodules. References, not copies.
-- `skill-sources.json` — manifest of skill sources to install.
-- `pi-packages.json` — pinned Pi packages to install when Pi is targeted.
-- `scripts/` — maintenance and install helpers.
-- `SKILLS.md` — catalog of installable skills grouped by source.
-- `THIRD_PARTY.md` — upstream projects consulted when adapting personal skills.
+This repository is the source of truth for the parts of my Pi environment that are safe and useful to share between machines:
 
-## Skill sources
+- install the pinned Pi CLI version;
+- restore portable Pi preferences;
+- install pinned Pi packages and extension configuration;
+- install personal skills and selected upstream skill collections;
+- make a new machine usable with one bootstrap command.
 
-Bootstrap installs enabled skills from the local collection and these upstream repositories:
+It deliberately does **not** synchronize credentials, conversation history, trust decisions, caches, or other machine-specific runtime state.
 
-- [mattpocock/skills](https://github.com/mattpocock/skills)
-- [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)
-- [anthropics/skills](https://github.com/anthropics/skills)
-- [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
-- [powerycy/goutoujunshi](https://github.com/powerycy/goutoujunshi)
+## What is synchronized
 
-See `skill-sources.json` for enabled sources, selected paths, and exclusions. Run `python3 scripts/install-skills.py --list` for the authoritative installable-skill list.
+| Resource | Repository source | Installed location |
+| --- | --- | --- |
+| Pi CLI | `piVersion` in `pi-packages.json` | global npm installation |
+| Portable Pi settings | `pi-config/settings.patch.json` | merged into `~/.pi/agent/settings.json` |
+| Extension configuration | `pi-config/` | matching paths under `~/.pi/agent/` |
+| Pi packages | `pi-packages.json` | managed by `pi install` |
+| Personal skills | `skills/` | `~/.pi/agent/skills/` by default |
+| Upstream skills | `external/` + `skill-sources.json` | `~/.pi/agent/skills/` by default |
 
-## Setup
+Package versions and Git revisions are pinned so two machines do not silently load different extension code.
 
-Clone with submodules and install everything:
+## What is not synchronized
+
+The following remain local and must never be committed:
+
+- `~/.pi/agent/auth.json` and API keys;
+- session history and compaction artifacts;
+- `trust.json`, package caches, cloned package contents, and model-catalog caches;
+- machine-specific absolute skill paths;
+- secrets embedded in MCP or custom-provider configuration.
+
+On a new machine, authenticate separately with `/login`. The default configuration currently uses `openai-codex`, so run `/login openai-codex` when required.
+
+## New machine setup
+
+Prerequisites:
+
+- Git;
+- Python `3.9` or newer;
+- Node.js `22.19.0` or newer;
+- npm available on `PATH`.
 
 ```bash
 git clone --recurse-submodules git@github.com:Alizen-1009/my_skills.git
@@ -34,61 +54,133 @@ cd my_skills
 ./scripts/bootstrap.sh
 ```
 
-Already cloned without submodules? Run `git submodule update --init --recursive` first.
+Bootstrap performs these steps:
 
-Restart the agent after installing or updating skills.
+1. checks out the recorded submodule revisions;
+2. installs or reconciles the pinned Pi CLI version;
+3. installs the selected skills;
+4. installs pinned Pi packages;
+5. merges portable settings and synchronizes extension configuration.
 
-### Install targets
-
-The installer auto-detects every agent harness whose home directory exists and installs into all of them:
-
-| Agent | Skills directory | Home override |
-| --- | --- | --- |
-| Codex | `~/.codex/skills` | `CODEX_HOME` |
-| pi | `~/.pi/agent/skills` | `PI_CODING_AGENT_DIR` |
-| Claude Code | `~/.claude/skills` | — |
+Then start Pi and authenticate if needed:
 
 ```bash
-./scripts/bootstrap.sh                    # every detected harness
-./scripts/bootstrap.sh --agent pi         # one harness (or --agent pi,codex)
-./scripts/bootstrap.sh --dest <dir>       # an explicit directory
+pi
 ```
 
-Skills install as symlinks into this repo, so re-running after a `git pull` updates everything in place. Existing entries the installer did not create are reported as `[SKIP]` and left alone — pass `--force` to replace them. Use `--mode copy` for a standalone install.
+```text
+/login openai-codex
+```
 
-When Pi is among the selected targets, bootstrap also installs the pinned packages in `pi-packages.json`. Package refs are intentionally pinned; update the manifest explicitly after reviewing a newer revision.
+Preview without changing the machine (including leaving submodules untouched):
+
+```bash
+./scripts/bootstrap.sh --dry-run
+```
+
+## Daily synchronization
+
+Pull repository changes and reconcile the local machine:
+
+```bash
+git pull --recurse-submodules
+./scripts/bootstrap.sh
+```
+
+To change a portable Pi preference, edit `pi-config/settings.patch.json` and run bootstrap. The file uses JSON Merge Patch semantics:
+
+- objects merge recursively;
+- arrays and scalar values replace the managed value;
+- `null` removes a setting;
+- settings not mentioned in the patch remain local.
+
+This preserves Pi's package list, changelog state, and optional machine-specific skill paths while keeping the selected model, thinking level, compaction policy, retry policy, and UI preferences consistent.
 
 ## Managed Pi packages
 
-The current package set includes `pi-goal-runtime`, which adds persistent `/goal` commands and automatic continuation for long-running Pi tasks. Install or reconcile Pi resources with:
+`pi-packages.json` currently pins packages such as:
+
+- `pi-goal-runtime` for persistent, verifiable goals;
+- `pi-continue` for safe mid-run compaction and same-session continuation during long tool loops;
+- planning, side-question, web access, MCP, subagent, and TUI extensions.
+
+Pi's native compaction stays enabled and owns the threshold and persisted compaction format. `pi-continue` adds the long-running tool-loop handoff and resume behavior.
+
+After changing package or extension configuration in a running Pi process, run `/reload` or restart Pi.
+
+## Skills
+
+Local skills live under `skills/`. Upstream skill repositories are Git submodules under `external/` and are filtered by `skill-sources.json`.
+
+List the authoritative install set:
 
 ```bash
-./scripts/bootstrap.sh --agent pi
+python3 scripts/install-skills.py --list
 ```
 
-After package changes, restart Pi or run `/reload`.
-
-## Update upstream sources
-
-```bash
-git submodule update --remote --merge
-```
-
-Commit the submodule pointer changes to track newer upstream commits.
-
-## Add a skill
-
-**Personal skill** — create `skills/<skill-name>/` with a `SKILL.md` (and optionally `agents/openai.yaml`, `scripts/`, `references/`, `assets/`). Validate with:
+Validate personal skills:
 
 ```bash
 python3 scripts/validate-skills.py
 ```
 
-**Upstream source** — add a third-party repo as a submodule and register it:
+Update upstream repositories intentionally, review the changes, and commit the new submodule revisions:
+
+```bash
+git submodule update --remote --merge
+```
+
+### Other harnesses
+
+Pi is the default target. Skills can also be installed without configuring Pi:
+
+```bash
+./scripts/bootstrap.sh --agent codex
+./scripts/bootstrap.sh --agent claude
+./scripts/bootstrap.sh --agent pi,codex
+./scripts/bootstrap.sh --dest <directory>
+```
+
+| Agent | Skills directory | Home override |
+| --- | --- | --- |
+| Pi | `~/.pi/agent/skills` | `PI_CODING_AGENT_DIR` |
+| Codex | `~/.codex/skills` | `CODEX_HOME` |
+| Claude Code | `~/.claude/skills` | — |
+
+## Repository layout
+
+- `pi-config/` — portable Pi settings patches and extension configuration.
+- `pi-packages.json` — pinned Pi CLI and package versions.
+- `skills/` — personal skills maintained in this repository.
+- `external/` — upstream skill collections tracked as submodules.
+- `skill-sources.json` — enabled sources, paths, and exclusions.
+- `scripts/` — bootstrap, installation, source-management, and validation tools.
+- `tests/` — installer and configuration regression tests.
+- `SKILLS.md` — catalog of available skills grouped by source.
+- `THIRD_PARTY.md` — upstream projects consulted when adapting skills.
+
+## Adding a skill
+
+Create a personal skill under `skills/<skill-name>/` with a `SKILL.md`, then validate it:
+
+```bash
+python3 scripts/validate-skills.py
+```
+
+Add an upstream skill collection as a submodule and register it:
 
 ```bash
 python3 scripts/add-skill-source.py <name> <repo-url> [--recursive | --skills-path <path>]
-./scripts/bootstrap.sh --dry-run   # preview, then run without --dry-run to install
+./scripts/bootstrap.sh --dry-run
 ```
 
-Pick the path flag by repo shape: default for `skills/*`, `--recursive` for nested skill folders, `--skills-path .` when the repo root is a single skill, or `--skills-path <dir>` for one skill in a subdirectory.
+Use default discovery for `skills/*`, `--recursive` for nested skill folders, `--skills-path .` when the repository root is one skill, or `--skills-path <dir>` for a specific subdirectory.
+
+## Security boundary
+
+Before committing Pi configuration:
+
+1. keep credentials in `auth.json`, environment variables, or an external secret manager;
+2. reference secrets from MCP/custom-provider config through environment variables rather than literals;
+3. check `git status` and the staged diff for tokens, cookies, private URLs, and machine-specific paths;
+4. never force-add files ignored by the Pi security rules in `.gitignore`.
