@@ -1,8 +1,44 @@
 {
+  "piVersion": "0.84.2",
   "packages": [
     {
       "id": "pi-goal-runtime",
       "source": "https://github.com/DXM666/pi-goal-runtime@3d2c671d2eca5ccd574619074a91a6c992b50265",
+      "enabled": true
+    },
+    {
+      "id": "pi-zentui",
+      "source": "npm:pi-zentui@0.20.1",
+      "enabled": true
+    },
+    {
+      "id": "pi-web-access",
+      "source": "npm:pi-web-access@0.23.0",
+      "enabled": true
+    },
+    {
+      "id": "@narumitw/pi-plan-mode",
+      "source": "npm:@narumitw/pi-plan-mode@0.49.3",
+      "enabled": true
+    },
+    {
+      "id": "@narumitw/pi-btw",
+      "source": "npm:@narumitw/pi-btw@0.52.0",
+      "enabled": true
+    },
+    {
+      "id": "pi-mcp-adapter",
+      "source": "npm:pi-mcp-adapter@2.26.0",
+      "enabled": true
+    },
+    {
+      "id": "@tintinweb/pi-subagents",
+      "source": "npm:@tintinweb/pi-subagents@0.16.1",
+      "enabled": true
+    },
+    {
+      "id": "pi-continue",
+      "source": "npm:pi-continue@0.9.3",
       "enabled": true
     }
   ]

@@ -1,0 +1,19 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Pi config is allowlisted: only the portable patch and extension config belong here
+pi-config/*
+!pi-config/settings.patch.json
+!pi-config/extensions/
+!pi-config/extensions/**
+pi-config/**/*.bak
+pi-config/**/*.bak.*
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS/editor noise
+.DS_Store
