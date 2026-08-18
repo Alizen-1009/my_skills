@@ -8,8 +8,8 @@
   ],
   "compaction": {
     "enabled": true,
-    "reserveTokens": 54400,
-    "keepRecentTokens": 20000
+    "reserveTokens": 64000,
+    "keepRecentTokens": 50000
   },
   "retry": {
     "enabled": true,

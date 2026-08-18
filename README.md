@@ -18,7 +18,7 @@ It deliberately does **not** synchronize credentials, conversation history, trus
 
 | Resource | Repository source | Installed location |
 | --- | --- | --- |
-| Pi CLI | `piVersion` in `pi-packages.json` | global npm installation |
+| Pi CLI | `piVersion` in `pi-packages.json` + reviewed runtime compatibility patch | global npm installation |
 | Portable Pi settings | `pi-config/settings.patch.json` | merged into `~/.pi/agent/settings.json` |
 | Extension configuration | `pi-config/` | matching paths under `~/.pi/agent/` |
 | Pi packages | `pi-packages.json` | managed by `pi install` |
@@ -57,7 +57,7 @@ cd my_skills
 Bootstrap performs these steps:
 
 1. checks out the recorded submodule revisions;
-2. installs or reconciles the pinned Pi CLI version;
+2. installs or reconciles the pinned Pi CLI version and its reviewed mid-turn compaction guard;
 3. installs the selected skills;
 4. installs pinned Pi packages;
 5. merges portable settings and synchronizes extension configuration.
@@ -103,9 +103,11 @@ This preserves Pi's package list, changelog state, and optional machine-specific
 - `pi-goal-runtime` for persistent, verifiable goals;
 - planning, side-question, web access, MCP, subagent, and TUI extensions.
 
-Pi's native compaction stays enabled and owns context-threshold handling and the persisted compaction format. Goal runs should rely on this native behavior: do not add a separate mid-run compaction extension or pass `--compact-on-oversize` to `/goal`.
+Pi's native compaction stays enabled and owns context-threshold handling and the persisted compaction format. Pi 0.84.2 is patched during bootstrap to check the native threshold after every complete tool batch, compact before the next provider request, and resume the interrupted tool loop. The unattended profile reserves 64K tokens and keeps the most recent 50K tokens; this starts compaction at about 76% on the default 272K model and 50% on enabled 128K models.
 
-After changing package or extension configuration in a running Pi process, run `/reload` or restart Pi.
+The patch is intentionally version-locked: upgrading Pi requires reviewing or removing it rather than silently applying it to unknown code. Goal runs should rely on this native behavior; do not add a separate mid-run compaction extension or pass `--compact-on-oversize` to `/goal`.
+
+After changing package or extension configuration in a running Pi process, run `/reload` or restart Pi. A Pi CLI runtime patch requires a full process restart.
 
 ## Skills
 
