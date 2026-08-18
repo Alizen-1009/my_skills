@@ -5,7 +5,10 @@
       "kind": "local",
       "path": "skills",
       "recursive": false,
-      "enabled": true
+      "enabled": true,
+      "exclude": [
+        "tdd"
+      ]
     },
     {
       "id": "mattpocock-skills",
@@ -16,11 +19,28 @@
       "recursive": true,
       "enabled": true,
       "exclude": [
+        "ask-matt",
+        "claude-handoff",
         "design-an-interface",
+        "git-guardrails-claude-code",
+        "grill-me",
+        "implement",
+        "improve-codebase-architecture",
+        "loop-me",
+        "migrate-to-shoehorn",
         "qa",
         "request-refactor-plan",
+        "scaffold-exercises",
+        "setup-matt-pocock-skills",
+        "setup-ts-deep-modules",
         "tdd",
-        "ubiquitous-language"
+        "teach",
+        "to-questionnaire",
+        "to-spec",
+        "to-tickets",
+        "triage",
+        "ubiquitous-language",
+        "wait-what"
       ]
     },
     {
@@ -30,7 +50,10 @@
       "path": "external/addyosmani-agent-skills",
       "skills_path": "skills",
       "recursive": false,
-      "enabled": true
+      "enabled": true,
+      "exclude": [
+        "using-agent-skills"
+      ]
     },
     {
       "id": "anthropics-skills",
@@ -41,11 +64,12 @@
       "recursive": false,
       "enabled": true,
       "exclude": [
-        "web-artifacts-builder",
         "algorithmic-art",
         "brand-guidelines",
+        "claude-api",
         "internal-comms",
-        "claude-api"
+        "skill-creator",
+        "web-artifacts-builder"
       ]
     },
     {

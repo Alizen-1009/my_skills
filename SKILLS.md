@@ -1,95 +1,108 @@
 # 已安装 Skills 清单
 
-本清单基于 `python3 scripts/install-skills.py --list` 生成，并将用途说明整理为中文摘要；Skills 按来源仓库分组排列。
+> 此文件由 `python3 scripts/install-skills.py --write-catalog` 自动生成，请勿手工维护。
 
-当前可安装 skills 总数：**76**。
+当前默认安装集共 **60** 个 Skills。
 
 ## 来源统计
 
 | 来源 | 数量 |
 | --- | ---: |
-| https://github.com/addyosmani/agent-skills | 24 |
-| https://github.com/anthropics/skills | 12 |
-| https://github.com/mattpocock/skills | 33 |
 | local | 7 |
+| https://github.com/mattpocock/skills | 17 |
+| https://github.com/addyosmani/agent-skills | 23 |
+| https://github.com/anthropics/skills | 11 |
+| https://github.com/multica-ai/andrej-karpathy-skills | 1 |
+| https://github.com/powerycy/goutoujunshi.git | 1 |
 
-## Skills 列表
+## Skills
 
-| Skill | 来源 | 作用 |
-| --- | --- | --- |
-| `api-and-interface-design` | https://github.com/addyosmani/agent-skills | 设计稳定 API、模块边界和类型契约，适合 REST、GraphQL、前后端接口和公共接口设计。 |
-| `browser-testing-with-devtools` | https://github.com/addyosmani/agent-skills | 用 Chrome DevTools MCP 做真实浏览器测试、DOM 检查、控制台错误和网络请求分析。 |
-| `ci-cd-and-automation` | https://github.com/addyosmani/agent-skills | 设置或修改 CI/CD、质量门禁、自动化测试和部署流程。 |
-| `code-review-and-quality` | https://github.com/addyosmani/agent-skills | 合并前做多维代码质量审查，关注 bug、风险、可维护性和测试缺口。 |
-| `code-simplification` | https://github.com/addyosmani/agent-skills | 在不改变行为的前提下简化复杂代码，提升清晰度和可维护性。 |
-| `context-engineering` | https://github.com/addyosmani/agent-skills | 优化 agent 的项目上下文、规则文件和工作入口，减少上下文质量问题。 |
-| `debugging-and-error-recovery` | https://github.com/addyosmani/agent-skills | 系统化排查测试失败、构建失败、异常行为和错误恢复。 |
-| `deprecation-and-migration` | https://github.com/addyosmani/agent-skills | 管理旧系统、旧 API、旧功能的弃用、迁移和下线策略。 |
-| `documentation-and-adrs` | https://github.com/addyosmani/agent-skills | 记录架构决策、ADR、公共 API 变化和未来维护者需要的上下文。 |
-| `doubt-driven-development` | https://github.com/addyosmani/agent-skills | 对重要决策做 fresh-context 对抗式复核，适合高风险或不熟悉代码场景。 |
-| `frontend-ui-engineering` | https://github.com/addyosmani/agent-skills | 构建生产级前端 UI，关注布局、交互、状态管理和视觉质量。 |
-| `git-workflow-and-versioning` | https://github.com/addyosmani/agent-skills | 管理 git 工作流、分支、提交、版本号、标签和 changelog。 |
-| `idea-refine` | https://github.com/addyosmani/agent-skills | 把模糊想法通过发散和收敛变成清晰可执行方案。 |
-| `incremental-implementation` | https://github.com/addyosmani/agent-skills | 用小步提交和可验证切片交付功能，避免一次性大改。 |
-| `interview-me` | https://github.com/addyosmani/agent-skills | 对不清楚的需求做一问一答访谈，直到用户真实意图足够明确。 |
-| `observability-and-instrumentation` | https://github.com/addyosmani/agent-skills | 为生产功能添加日志、指标、追踪和可诊断性。 |
-| `performance-optimization` | https://github.com/addyosmani/agent-skills | 分析和优化性能、Core Web Vitals、加载速度和瓶颈。 |
-| `planning-and-task-breakdown` | https://github.com/addyosmani/agent-skills | 把明确规格拆成有顺序、可验证、可实现的小任务。 |
-| `security-and-hardening` | https://github.com/addyosmani/agent-skills | 加固涉及用户输入、认证、存储、外部集成和会话的代码。 |
-| `shipping-and-launch` | https://github.com/addyosmani/agent-skills | 准备生产发布、发布前检查、灰度策略、监控和回滚方案。 |
-| `source-driven-development` | https://github.com/addyosmani/agent-skills | 基于官方文档做实现决策，避免过时或未经证实的写法。 |
-| `spec-driven-development` | https://github.com/addyosmani/agent-skills | 在开始新项目、功能或重大改动前先写规格。 |
-| `test-driven-development` | https://github.com/addyosmani/agent-skills | 针对功能、bug 和行为改动，用测试证明代码正确。 |
-| `using-agent-skills` | https://github.com/addyosmani/agent-skills | 发现并调用合适的 agent skills，适合会话开始或选择 workflow 时使用。 |
-| `canvas-design` | https://github.com/anthropics/skills | 生成海报、平面设计等静态视觉作品，输出 .png 或 .pdf。 |
-| `doc-coauthoring` | https://github.com/anthropics/skills | 以结构化流程与用户共同撰写文档、提案、技术规格和决策文档。 |
-| `docx` | https://github.com/anthropics/skills | 创建、读取、编辑 Word 文档和模板，支持修订、批注和格式保留。 |
-| `frontend-design` | https://github.com/anthropics/skills | 为新 UI 或改版提供有辨识度的视觉方向、排版和审美决策。 |
-| `mcp-builder` | https://github.com/anthropics/skills | 构建高质量 MCP server，用 Python FastMCP 或 Node/TypeScript SDK 封装外部 API。 |
-| `pdf` | https://github.com/anthropics/skills | PDF 全套处理：提取文本表格、合并拆分、水印、表单填写、加解密、OCR。 |
-| `pptx` | https://github.com/anthropics/skills | 创建、读取、编辑 PowerPoint 演示文稿，支持模板、版式、备注和批注。 |
-| `skill-creator` | https://github.com/anthropics/skills | 创建、修改和优化 skill，并用 eval 测量触发准确率和表现。 |
-| `slack-gif-creator` | https://github.com/anthropics/skills | 制作适配 Slack 尺寸限制的动图 GIF，附带校验工具和动画原语。 |
-| `theme-factory` | https://github.com/anthropics/skills | 给幻灯片、文档、报告、落地页套用 10 套预设主题或即时生成新主题。 |
-| `webapp-testing` | https://github.com/anthropics/skills | 用 Playwright 驱动本地 web 应用做交互测试、截图和浏览器日志排查。 |
-| `xlsx` | https://github.com/anthropics/skills | 创建、读取、修改电子表格，支持公式、格式、图表和数据分析。 |
-| `ask-matt` | https://github.com/mattpocock/skills | 帮你判断当前任务应该使用哪个 Matt Pocock skill 或 workflow。 |
-| `claude-handoff` | https://github.com/mattpocock/skills | 把当前上下文交接给新的后台 agent 继续处理。 |
-| `code-review` | https://github.com/mattpocock/skills | 从指定基线开始做双轴代码审查：代码标准和需求符合度。 |
-| `codebase-design` | https://github.com/mattpocock/skills | 用深模块、清晰边界和可测试接口的方式改进代码库设计。 |
-| `diagnosing-bugs` | https://github.com/mattpocock/skills | 针对困难 bug、性能回退和失败行为做诊断循环。 |
-| `domain-modeling` | https://github.com/mattpocock/skills | 建立和打磨领域模型、术语表和统一语言。 |
-| `edit-article` | https://github.com/mattpocock/skills | 编辑文章，优化结构、表达清晰度和行文紧凑度。 |
-| `git-guardrails-claude-code` | https://github.com/mattpocock/skills | 给 Claude Code 设置 git 安全 hooks，阻止危险命令如 push、reset --hard、clean。 |
-| `grill-me` | https://github.com/mattpocock/skills | 通过高强度追问打磨计划或设计。 |
-| `grill-with-docs` | https://github.com/mattpocock/skills | 一边追问打磨计划，一边沉淀 ADR 和术语文档。 |
-| `grilling` | https://github.com/mattpocock/skills | 当用户想压力测试一个计划或设计时，进行系统追问。 |
-| `handoff` | https://github.com/mattpocock/skills | 把当前对话压缩成交接文档，方便其他 agent 接手。 |
-| `implement` | https://github.com/mattpocock/skills | 根据 PRD 或 issue 集合执行实现工作。 |
-| `improve-codebase-architecture` | https://github.com/mattpocock/skills | 扫描代码库架构改进机会，生成可视化报告并逐项追问。 |
-| `loop-me` | https://github.com/mattpocock/skills | 在当前 workspace 内反复追问你想构建的 workflow 规格。 |
-| `migrate-to-shoehorn` | https://github.com/mattpocock/skills | 把测试里的 `as` 类型断言迁移到 `@total-typescript/shoehorn`。 |
-| `obsidian-vault` | https://github.com/mattpocock/skills | 搜索、创建和整理 Obsidian vault 笔记和 wikilinks。 |
-| `prototype` | https://github.com/mattpocock/skills | 做一次性原型，验证状态模型、业务逻辑或 UI 方向是否合理。 |
-| `research` | https://github.com/mattpocock/skills | 针对技术问题查阅高可信来源，并把结果整理为 Markdown。 |
-| `resolving-merge-conflicts` | https://github.com/mattpocock/skills | 处理正在进行的 merge 或 rebase 冲突。 |
-| `scaffold-exercises` | https://github.com/mattpocock/skills | 创建课程练习目录、题目、答案和说明，并保证能通过 lint。 |
-| `setup-matt-pocock-skills` | https://github.com/mattpocock/skills | 为 Matt Pocock skills 初始化 issue tracker、triage 标签和文档布局。 |
-| `setup-pre-commit` | https://github.com/mattpocock/skills | 设置 Husky、lint-staged、格式化、类型检查和测试型 pre-commit。 |
-| `teach` | https://github.com/mattpocock/skills | 在当前 workspace 内教用户某个新技能或概念。 |
-| `to-issues` | https://github.com/mattpocock/skills | 把计划、spec 或 PRD 拆成可独立领取的 issue。 |
-| `to-prd` | https://github.com/mattpocock/skills | 把当前对话综合成 PRD 并发布到 issue tracker。 |
-| `triage` | https://github.com/mattpocock/skills | 对 issues 和外部 PR 做分类、验证、追问和 agent-ready brief。 |
-| `wayfinder` | https://github.com/mattpocock/skills | 把超大工作拆成调查 tickets，逐个解决直到路线清晰。 |
-| `wizard` | https://github.com/mattpocock/skills | 生成交互式 bash 向导，引导人工完成第三方设置、迁移或状态切换。 |
-| `writing-beats` | https://github.com/mattpocock/skills | 把原始材料组织成文章节拍和叙事路径。 |
-| `writing-fragments` | https://github.com/mattpocock/skills | 挖掘和收集写作碎片，暂不强加结构。 |
-| `writing-great-skills` | https://github.com/mattpocock/skills | 编写和编辑高质量 skills 的参考原则。 |
-| `writing-shape` | https://github.com/mattpocock/skills | 把素材逐段塑造成完整文章。 |
-| `academic-peer-review` | local | 对论文、投稿前初稿、修改稿和审稿回复做基于证据的同行评审，按严重程度给出可定位、可执行的问题。 |
-| `academic-writing` | local | 中文优先地撰写和修改学术论文、学位论文、摘要、章节及审稿回复，并保持主张与证据边界。 |
-| `find-unknowns` | local | 在大任务或模糊任务开始前找出未知点、盲区、含糊需求和未声明偏好，并把结果交给访谈、原型、规格、计划、设计、验证或 review 类 skills。 |
-| `literature-review` | local | 设计并记录文献检索、筛选、证据矩阵、引用核验以及叙述性、范围性或系统性综述。 |
-| `minimal-diff` | local | 在改动范围扩张或交付高风险 patch 前，审计 diff 是否保持最小、可审查且可逆。 |
-| `personal-skill-authoring` | local | 在这个个人 skills 仓库中新增、维护、适配和校验 Codex skills。 |
-| `tdd` | local | 兼容仍调用 `/tdd` 的工作流，并统一转发到 `test-driven-development`，不维护第二套 TDD 规则。 |
+### local
+
+| Skill | Description |
+| --- | --- |
+| `academic-peer-review` | Conduct evidence-based academic manuscript review, pre-submission self-review, methodology review, statistical review, revision verification, and reviewer-response audit. Use whenever the user asks to peer review, referee, critique, assess, stress-test, or check whether a paper or revision is publication-ready. Default to a read-only diagnostic review; do not rewrite the manuscript unless the user separately asks for revision. |
+| `academic-writing` | Chinese-first, evidence-aware academic writing and revision for papers, theses, abstracts, introductions, methods, results, discussions, conclusions, related work, rebuttals, and responses to reviewers. Use whenever the user asks to draft, rewrite, polish, shorten, translate, restructure, or strengthen academic manuscript prose. Do not use it for literature searching alone, formal peer review, or a Word/PPT deliverable whose main challenge is file generation. |
+| `b200-pod` | 在 B200 这台 ASI GPU 机器上远程执行命令、查看 GPU/日志/Pod 状态、诊断异常和传输小文件。Use when 用户提到 "B200"、指定 Pod ds-686eaedc-1.ds-686eaedc-1-0d3b27b0-a-eb17，或要求在这台机器上跑命令。统一使用 asicli console，计算容器固定为 worker0。 |
+| `find-unknowns` | Run a structured discovery workflow to surface what the user does not yet know about a task before and during implementation — blindspots, ambiguous requirements, and unstated preferences — then hand off to the right follow-up skill such as interview, prototype, research, spec, planning, design, verification, or review. Use at the start of an unfamiliar or large task, when a plan keeps shifting, when the user cannot describe what they want, or before shipping a big change. Based on Thariq's "find your unknowns" methodology. |
+| `literature-review` | Plan and conduct academic literature searches, source screening, evidence mapping, narrative reviews, scoping reviews, and systematic reviews with traceable citations. Use whenever the user asks to find papers, review the literature, identify a research gap, compare studies, build an evidence table, verify references, or assess whether sources support a claim. Do not use for manuscript polishing alone or pretend a quick search is a systematic review. |
+| `minimal-diff` | Audit whether a code change is the smallest correct, reviewable, and reversible diff. Use when a patch is expanding beyond its stated scope, when the user asks to minimize or review a diff, or before handing off a risky or broad change. Do not invoke automatically for every trivial edit. |
+| `personal-skill-authoring` | Create and maintain personal Codex skills inside a reusable skills repository. Use when adding a new personal skill, adapting an upstream skill into this repo, deciding what belongs in SKILL.md versus scripts/references/assets, validating skill structure, or preparing a skill for local installation. |
+
+### https://github.com/mattpocock/skills
+
+| Skill | Description |
+| --- | --- |
+| `code-review` | Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes — Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X". |
+| `codebase-design` | Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary. |
+| `diagnosing-bugs` | Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow. |
+| `domain-modeling` | Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model. |
+| `grill-with-docs` | A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go. |
+| `grilling` | Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases. |
+| `handoff` | Compact the current conversation into a handoff document for another agent to pick up. |
+| `prototype` | Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like. |
+| `research` | Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent. |
+| `resolving-merge-conflicts` | Use when you need to resolve an in-progress git merge/rebase conflict. |
+| `setup-pre-commit` | Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing. |
+| `wayfinder` | Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear. |
+| `wizard` | Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself. |
+| `writing-beats` | Writing, exploit — assemble raw material into a journey of beats, grounding each term before a beat leans on it. |
+| `writing-for-agents` | Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md. |
+| `writing-fragments` | Writing, explore — mine raw fragments, no structure yet. |
+| `writing-shape` | Writing, exploit — shape raw material into an article, paragraph by paragraph. |
+
+### https://github.com/addyosmani/agent-skills
+
+| Skill | Description |
+| --- | --- |
+| `api-and-interface-design` | Guides stable API and interface design. Use when designing APIs, module boundaries, or any public interface. Use when creating REST or GraphQL endpoints, defining type contracts between modules, or establishing boundaries between frontend and backend. |
+| `browser-testing-with-devtools` | Tests in real browsers via Chrome DevTools MCP. Use when building or debugging anything that runs in a browser. Use when you need to inspect the DOM, capture console errors, analyze network requests, profile performance, or verify visual output with real runtime data. Requires the chrome-devtools MCP server to be configured. |
+| `ci-cd-and-automation` | Automates CI/CD pipeline setup. Use when setting up or modifying build and deployment pipelines. Use when you need to automate quality gates, configure test runners in CI, or establish deployment strategies. |
+| `code-review-and-quality` | Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch. |
+| `code-simplification` | Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity. |
+| `context-engineering` | Optimizes agent context setup. Use when starting a new session, when agent output quality degrades, when switching between tasks, or when you need to configure rules files and context for a project. |
+| `debugging-and-error-recovery` | Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing. |
+| `deprecation-and-migration` | Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when deciding whether to maintain or sunset existing code. |
+| `documentation-and-adrs` | Records decisions and documentation. Use when making architectural decisions, changing public APIs, shipping features, or when you need to record context that future engineers and agents will need to understand the codebase. |
+| `doubt-driven-development` | Subjects every non-trivial decision to a fresh-context adversarial review before it stands. Use when correctness matters more than speed, when working in unfamiliar code, when stakes are high (production, security-sensitive logic, irreversible operations), or any time a confident output would be cheaper to verify now than to debug later. |
+| `frontend-ui-engineering` | Builds production-quality, accessible, responsive user-facing UIs. Use when building or modifying interfaces and pages, creating components, implementing layouts, meeting WCAG accessibility requirements, managing state, or when the output needs to look and feel production-quality rather than AI-generated. |
+| `git-workflow-and-versioning` | Structures git workflow practices. Use when making any code change. Use when committing, branching, resolving conflicts, or when you need to organize work across multiple parallel streams. Use when cutting a release, choosing a semantic version bump, tagging, or writing a changelog. |
+| `idea-refine` | Refines raw ideas into sharp, actionable concepts through structured divergent and convergent thinking. Use when an idea is still vague, when you need to stress-test assumptions before committing to a plan, or when you want to expand options before converging on one. Triggers on "ideate", "refine this idea", or "stress-test my plan". |
+| `incremental-implementation` | Delivers changes incrementally. Use when implementing any feature or change that touches more than one file. Use when you're about to write a large amount of code at once, or when a task feels too big to land in one step. |
+| `interview-me` | Extracts what the user actually wants instead of what they think they should want. Achieves this through one-question-at-a-time interview until ~95% confidence about the underlying intent. Use when an ask is underspecified ("build me X" without "for whom" or "why now"), when the user explicitly invokes ("interview me", "grill me", "are we sure?", "stress-test my thinking"), or when you catch yourself silently filling in ambiguous requirements before any plan, spec, or code exists. |
+| `observability-and-instrumentation` | Instruments code so production behavior is visible and diagnosable. Use when adding logging, metrics, tracing, or alerting. Use when shipping any feature that runs in production and you need evidence it works. Use when production issues are reported but you can't tell what happened from the available data. |
+| `performance-optimization` | Optimizes application performance across frontend, backend, queries, and databases. Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement, when N+1 query patterns need fixing, or when profiling reveals bottlenecks. |
+| `planning-and-task-breakdown` | Breaks work into ordered tasks. Use when you have a spec or clear requirements and need to break work into implementable tasks. Use when a task feels too large to start, when you need to estimate scope, or when parallel work is possible. |
+| `security-and-hardening` | Hardens code against vulnerabilities. Use when handling user input, authentication, data storage, or external integrations. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. |
+| `shipping-and-launch` | Prepares production launches. Use when preparing to deploy to production. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a rollback strategy. |
+| `source-driven-development` | Grounds every implementation decision in official documentation. Use when you want authoritative, source-cited code free from outdated patterns. Use when building with any framework or library where correctness matters. |
+| `spec-driven-development` | Creates specs before coding. Use when starting a new project, feature, or significant change and no specification exists yet. Use when requirements are unclear, ambiguous, or only exist as a vague idea. |
+| `test-driven-development` | Drives development with tests. Use when implementing any logic, fixing any bug, or changing any behavior. Use when you need to prove that code works, when a bug report arrives, or when you're about to modify existing functionality. |
+
+### https://github.com/anthropics/skills
+
+| Skill | Description |
+| --- | --- |
+| `canvas-design` | Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations. |
+| `doc-coauthoring` | Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks. |
+| `docx` | Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation. |
+| `frontend-design` | Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults. |
+| `mcp-builder` | Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK). |
+| `pdf` | Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill. |
+| `pptx` | Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill. |
+| `slack-gif-creator` | Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like "make me a GIF of X doing Y for Slack." |
+| `theme-factory` | Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly. |
+| `webapp-testing` | Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs. |
+| `xlsx` | Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \"the xlsx in my downloads\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved. |
+
+### https://github.com/multica-ai/andrej-karpathy-skills
+
+| Skill | Description |
+| --- | --- |
+| `karpathy-guidelines` | Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria. |
+
+### https://github.com/powerycy/goutoujunshi.git
+
+| Skill | Description |
+| --- | --- |
+| `goutoujunshi` | 恋爱军师与情绪支持 skill。用于心动、暧昧、追求、聊天记录或截图分析、约会、关系确认、多人选择、冲突、冷淡、投入失衡、分手、复合、出轨、婚姻或家庭问题；也用于分析关系信号、设计主动推进或退出策略、润色可直接发送的话术，以及把冷读、自然流、Blueprint、Mystery 等经典社交体系转译成真实、互惠、可退出的沟通能力。支持分析ChatLab已有数据和经同意可撤销的长期关系档案，不负责导出聊天软件数据。首次使用时为用户及一个或多个目标对象建立包含 MBTI、主观综合评分和关系背景的档案。 |

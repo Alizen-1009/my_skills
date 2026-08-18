@@ -124,6 +124,15 @@ Validate personal skills:
 python3 scripts/validate-skills.py
 ```
 
+Regenerate and verify the committed catalog after changing local skills or source filters:
+
+```bash
+python3 scripts/install-skills.py --write-catalog
+python3 scripts/install-skills.py --check-catalog
+```
+
+The installer prunes a symlink only when its name is explicitly excluded in `skill-sources.json` and its target exactly matches that excluded source path. Other links, copied directories, and machine-managed skills are left untouched.
+
 Update upstream repositories intentionally, review the changes, and commit the new submodule revisions:
 
 ```bash
@@ -156,7 +165,7 @@ Pi is the default target. Skills can also be installed without configuring Pi:
 - `skill-sources.json` — enabled sources, paths, and exclusions.
 - `scripts/` — bootstrap, installation, source-management, and validation tools.
 - `tests/` — installer and configuration regression tests.
-- `SKILLS.md` — catalog of available skills grouped by source.
+- `SKILLS.md` — generated catalog of the authoritative default install set.
 - `THIRD_PARTY.md` — upstream projects consulted when adapting skills.
 
 ## Adding a skill

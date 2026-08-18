@@ -9,7 +9,7 @@ Preserve these boundaries when changing it:
 - Keep reproducible Pi settings in `pi-config/settings.patch.json`; it merges into local `settings.json` and must not manage the dynamic `packages` list or machine-specific skill paths.
 - Keep extension configuration under `pi-config/` using paths relative to `~/.pi/agent/`.
 - Pin Pi and package versions in `pi-packages.json`; bootstrap must remain safe and idempotent.
-- Keep personal skills under `skills/`; filter upstream submodule skills through `skill-sources.json` rather than editing upstream copies.
+- Keep personal skills under `skills/`; filter upstream submodule skills through `skill-sources.json` rather than editing upstream copies. Regenerate `SKILLS.md` with `python3 scripts/install-skills.py --write-catalog` whenever the selection changes.
 - Never commit `auth.json`, sessions, trust decisions, caches, literal API keys, cookies, or machine-specific private paths. Credentials remain a manual new-machine `/login` step.
 - Verify installer behavior with the Python test suite and validate personal skills before finishing.
 

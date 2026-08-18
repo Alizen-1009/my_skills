@@ -73,31 +73,29 @@ def repo_root() -> Path:
 def load_sources(root: Path) -> list[Source]:
     manifest_path = root / "skill-sources.json"
     if not manifest_path.exists():
-        print(f"Missing source manifest: {manifest_path}", file=sys.stderr)
-        return []
+        raise ValueError(f"Missing source manifest: {manifest_path}")
 
     try:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as error:
-        print(f"Invalid JSON in {manifest_path}: {error}", file=sys.stderr)
-        return []
+        raise ValueError(f"Invalid JSON in {manifest_path}: {error}") from error
 
     entries = manifest.get("sources")
     if not isinstance(entries, list):
-        print("skill-sources.json must contain a sources array", file=sys.stderr)
-        return []
+        raise ValueError("skill-sources.json must contain a sources array")
 
     sources: list[Source] = []
-    for entry in entries:
-        if not isinstance(entry, dict) or not entry.get("enabled", True):
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict):
+            raise ValueError(f"source entry {index} must be an object")
+        if not entry.get("enabled", True):
             continue
 
         source_id = str(entry.get("id", "")).strip()
         kind = str(entry.get("kind", "")).strip()
         path = str(entry.get("path", "")).strip()
         if not source_id or not kind or not path:
-            print(f"Skipping invalid source entry: {entry}", file=sys.stderr)
-            continue
+            raise ValueError(f"invalid enabled source entry {index}: {entry}")
 
         if kind == "local":
             source_root = root / path
@@ -105,11 +103,14 @@ def load_sources(root: Path) -> list[Source]:
             skills_path = str(entry.get("skills_path", "skills")).strip() or "."
             source_root = root / path / skills_path
         else:
-            print(f"Skipping unknown source kind {kind!r} for {source_id}", file=sys.stderr)
-            continue
+            raise ValueError(f"unknown kind {kind!r} for source {source_id}")
 
-        include = frozenset(str(name) for name in entry.get("include", []))
-        exclude = frozenset(str(name) for name in entry.get("exclude", []))
+        include_value = entry.get("include", [])
+        exclude_value = entry.get("exclude", [])
+        if not isinstance(include_value, list) or not isinstance(exclude_value, list):
+            raise ValueError(f"include/exclude must be arrays for source {source_id}")
+        include = frozenset(str(name) for name in include_value)
+        exclude = frozenset(str(name) for name in exclude_value)
         label = str(entry.get("repo") or source_id)
         sources.append(
             Source(
@@ -157,11 +158,11 @@ def discover_skills(source: Source) -> list[Skill]:
     return skills
 
 
-def discover_all(root: Path) -> tuple[list[Skill], list[str]]:
+def discover_sources(sources: list[Source]) -> tuple[list[Skill], list[str]]:
     chosen: dict[str, Skill] = {}
     warnings: list[str] = []
 
-    for source in load_sources(root):
+    for source in sources:
         for skill in discover_skills(source):
             existing = chosen.get(skill.name)
             if existing:
@@ -172,6 +173,30 @@ def discover_all(root: Path) -> tuple[list[Skill], list[str]]:
             chosen[skill.name] = skill
 
     return list(chosen.values()), warnings
+
+
+def discover_all(root: Path) -> tuple[list[Skill], list[str]]:
+    return discover_sources(load_sources(root))
+
+
+def excluded_skill_targets(sources: list[Source]) -> dict[str, frozenset[Path]]:
+    targets: dict[str, set[Path]] = {}
+    for source in sources:
+        excluded_paths: dict[str, set[Path]] = {
+            name: set() for name in source.exclude
+        }
+        if source.recursive and source.root.is_dir():
+            for skill_file in source.root.rglob("SKILL.md"):
+                if skill_file.parent.name in excluded_paths:
+                    excluded_paths[skill_file.parent.name].add(
+                        skill_file.parent.resolve()
+                    )
+        for name, paths in excluded_paths.items():
+            if not paths and not source.recursive:
+                paths.add((source.root / name).resolve())
+            if paths:
+                targets.setdefault(name, set()).update(paths)
+    return {name: frozenset(paths) for name, paths in targets.items()}
 
 
 def is_link_to(path: Path, target: Path) -> bool:
@@ -195,9 +220,57 @@ def read_description(skill: Skill) -> str:
     for raw_line in text[4:end].splitlines():
         line = raw_line.strip()
         if line.startswith("description:"):
-            description = line.split(":", 1)[1].strip().strip("\"'")
+            description = line.split(":", 1)[1].strip()
+            if (
+                len(description) >= 2
+                and description[0] == description[-1]
+                and description[0] in {"\"", "'"}
+            ):
+                description = description[1:-1]
             return " ".join(description.split())
     return ""
+
+
+def escape_markdown_cell(value: str) -> str:
+    return value.replace("|", "\\|").replace("\n", " ")
+
+
+def render_skill_catalog(skills: list[Skill]) -> str:
+    grouped: dict[str, list[Skill]] = {}
+    for skill in skills:
+        grouped.setdefault(skill.source, []).append(skill)
+
+    lines = [
+        "# 已安装 Skills 清单",
+        "",
+        "> 此文件由 `python3 scripts/install-skills.py --write-catalog` 自动生成，请勿手工维护。",
+        "",
+        f"当前默认安装集共 **{len(skills)}** 个 Skills。",
+        "",
+        "## 来源统计",
+        "",
+        "| 来源 | 数量 |",
+        "| --- | ---: |",
+    ]
+    for source, source_skills in grouped.items():
+        lines.append(f"| {escape_markdown_cell(source)} | {len(source_skills)} |")
+
+    lines.extend(["", "## Skills", ""])
+    for source, source_skills in grouped.items():
+        lines.extend(
+            [
+                f"### {source}",
+                "",
+                "| Skill | Description |",
+                "| --- | --- |",
+            ]
+        )
+        for skill in sorted(source_skills, key=lambda item: item.name):
+            description = escape_markdown_cell(read_description(skill))
+            lines.append(f"| `{skill.name}` | {description} |")
+        lines.append("")
+
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def print_skill_list(skills: list[Skill], warnings: list[str]) -> None:
@@ -210,6 +283,30 @@ def print_skill_list(skills: list[Skill], warnings: list[str]) -> None:
             print(f"{skill.name}\t{skill.source}\t{description}")
         else:
             print(f"{skill.name}\t{skill.source}")
+
+
+def prune_stale_managed_links(
+    dest_dir: Path,
+    prunable: dict[str, frozenset[Path]],
+    dry_run: bool,
+) -> list[str]:
+    if not dest_dir.is_dir():
+        return []
+
+    messages: list[str] = []
+    for destination in sorted(dest_dir.iterdir()):
+        expected_targets = prunable.get(destination.name)
+        if not destination.is_symlink() or not expected_targets:
+            continue
+        if destination.resolve(strict=False) not in expected_targets:
+            continue
+
+        if dry_run:
+            messages.append(f"[DRY] prune {destination.name}")
+        else:
+            destination.unlink()
+            messages.append(f"[PRUNE] {destination.name}")
+    return messages
 
 
 def install_skill(skill: Skill, dest_dir: Path, mode: str, force: bool, dry_run: bool) -> str:
@@ -269,10 +366,21 @@ def main() -> int:
         action="store_true",
         help="Show what would be installed without changing files.",
     )
-    parser.add_argument(
+    output_mode = parser.add_mutually_exclusive_group()
+    output_mode.add_argument(
         "--list",
         action="store_true",
         help="List discovered skills with source and frontmatter description.",
+    )
+    output_mode.add_argument(
+        "--write-catalog",
+        action="store_true",
+        help="Regenerate SKILLS.md from the authoritative install set.",
+    )
+    output_mode.add_argument(
+        "--check-catalog",
+        action="store_true",
+        help="Fail when SKILLS.md does not match the authoritative install set.",
     )
     args = parser.parse_args()
     if args.dest and args.agent:
@@ -280,7 +388,24 @@ def main() -> int:
         return 1
 
     root = repo_root()
-    skills, warnings = discover_all(root)
+    try:
+        sources = load_sources(root)
+    except ValueError as error:
+        print(error, file=sys.stderr)
+        return 1
+
+    unusable_sources = [
+        source
+        for source in sources
+        if not source.root.is_dir() or not discover_skills(source)
+    ]
+    if unusable_sources:
+        for source in unusable_sources:
+            print(f"Unusable skill source {source.id}: {source.root}", file=sys.stderr)
+        print("Run: git submodule update --init --recursive", file=sys.stderr)
+        return 1
+
+    skills, warnings = discover_sources(sources)
     if not skills:
         print("No skills found. Did you initialize submodules?", file=sys.stderr)
         print("Run: git submodule update --init --recursive", file=sys.stderr)
@@ -288,6 +413,23 @@ def main() -> int:
 
     if args.list:
         print_skill_list(skills, warnings)
+        return 0
+
+    catalog_path = root / "SKILLS.md"
+    if args.write_catalog:
+        catalog_path.write_text(render_skill_catalog(skills), encoding="utf-8")
+        print(f"[OK] wrote {catalog_path}")
+        return 0
+    if args.check_catalog:
+        expected = render_skill_catalog(skills)
+        actual = catalog_path.read_text(encoding="utf-8") if catalog_path.exists() else ""
+        if actual != expected:
+            print(
+                "SKILLS.md is stale; run: python3 scripts/install-skills.py --write-catalog",
+                file=sys.stderr,
+            )
+            return 1
+        print("[OK] SKILLS.md matches the authoritative install set")
         return 0
 
     for warning in warnings:
@@ -304,10 +446,17 @@ def main() -> int:
             return 1
 
     sorted_skills = sorted(skills, key=lambda item: item.name)
+    prunable = excluded_skill_targets(sources)
     for target in targets:
         dest_dir = target.skills_dir
         print()
         print(f"=== {target.id} -> {dest_dir}")
+        for message in prune_stale_managed_links(
+            dest_dir,
+            prunable,
+            args.dry_run,
+        ):
+            print(message)
         for skill in sorted_skills:
             print(install_skill(skill, dest_dir, args.mode, args.force, args.dry_run))
 

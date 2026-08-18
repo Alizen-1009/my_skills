@@ -1,4 +1,0 @@
-interface:
-  display_name: "TDD Compatibility Alias"
-  short_description: "Route TDD requests to test-driven-development"
-  default_prompt: "Use $test-driven-development to implement this change test-first with a red-green cycle."
