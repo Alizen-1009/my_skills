@@ -1,7 +1,0 @@
-{
-  "enabled": true,
-  "midRunGuardEnabled": true,
-  "continuationArtifactMode": "off",
-  "agentGuideSyncMode": "off",
-  "showAfterCompact": false
-}

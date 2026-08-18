@@ -35,11 +35,6 @@
       "id": "@tintinweb/pi-subagents",
       "source": "npm:@tintinweb/pi-subagents@0.16.1",
       "enabled": true
-    },
-    {
-      "id": "pi-continue",
-      "source": "npm:pi-continue@0.9.3",
-      "enabled": true
     }
   ]
 }

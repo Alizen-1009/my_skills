@@ -101,10 +101,9 @@ This preserves Pi's package list, changelog state, and optional machine-specific
 `pi-packages.json` currently pins packages such as:
 
 - `pi-goal-runtime` for persistent, verifiable goals;
-- `pi-continue` for safe mid-run compaction and same-session continuation during long tool loops;
 - planning, side-question, web access, MCP, subagent, and TUI extensions.
 
-Pi's native compaction stays enabled and owns the threshold and persisted compaction format. `pi-continue` adds the long-running tool-loop handoff and resume behavior.
+Pi's native compaction stays enabled and owns context-threshold handling and the persisted compaction format. Goal runs should rely on this native behavior: do not add a separate mid-run compaction extension or pass `--compact-on-oversize` to `/goal`.
 
 After changing package or extension configuration in a running Pi process, run `/reload` or restart Pi.
 
