@@ -13,3 +13,6 @@
 [submodule "external/goutoujunshi"]
 	path = external/goutoujunshi
 	url = https://github.com/powerycy/goutoujunshi.git
+[submodule "external/supervisor-skills"]
+	path = external/supervisor-skills
+	url = https://github.com/HKUSTDial/Supervisor-Skills.git

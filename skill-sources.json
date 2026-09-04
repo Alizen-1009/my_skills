@@ -89,6 +89,19 @@
       "skills_path": ".",
       "recursive": false,
       "enabled": true
+    },
+    {
+      "id": "supervisor-skills",
+      "kind": "git-submodule",
+      "repo": "https://github.com/HKUSTDial/Supervisor-Skills.git",
+      "path": "external/supervisor-skills",
+      "skills_path": "skills",
+      "recursive": false,
+      "enabled": true,
+      "include": [
+        "drawio-reconstruction",
+        "figure-designer"
+      ]
     }
   ]
 }

@@ -217,10 +217,19 @@ def read_description(skill: Skill) -> str:
     if end == -1:
         return ""
 
-    for raw_line in text[4:end].splitlines():
+    frontmatter_lines = text[4:end].splitlines()
+    for index, raw_line in enumerate(frontmatter_lines):
         line = raw_line.strip()
         if line.startswith("description:"):
             description = line.split(":", 1)[1].strip()
+            if description in {">", ">-", ">+", "|", "|-", "|+"}:
+                description_lines: list[str] = []
+                for continuation in frontmatter_lines[index + 1 :]:
+                    if continuation and not continuation[0].isspace():
+                        break
+                    if continuation.strip():
+                        description_lines.append(continuation.strip())
+                return " ".join(" ".join(description_lines).split())
             if (
                 len(description) >= 2
                 and description[0] == description[-1]

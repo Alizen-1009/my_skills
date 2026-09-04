@@ -2,7 +2,7 @@
 
 > 此文件由 `python3 scripts/install-skills.py --write-catalog` 自动生成，请勿手工维护。
 
-当前默认安装集共 **60** 个 Skills。
+当前默认安装集共 **62** 个 Skills。
 
 ## 来源统计
 
@@ -14,6 +14,7 @@
 | https://github.com/anthropics/skills | 11 |
 | https://github.com/multica-ai/andrej-karpathy-skills | 1 |
 | https://github.com/powerycy/goutoujunshi.git | 1 |
+| https://github.com/HKUSTDial/Supervisor-Skills.git | 2 |
 
 ## Skills
 
@@ -106,3 +107,10 @@
 | Skill | Description |
 | --- | --- |
 | `goutoujunshi` | 恋爱军师与情绪支持 skill。用于心动、暧昧、追求、聊天记录或截图分析、约会、关系确认、多人选择、冲突、冷淡、投入失衡、分手、复合、出轨、婚姻或家庭问题；也用于分析关系信号、设计主动推进或退出策略、润色可直接发送的话术，以及把冷读、自然流、Blueprint、Mystery 等经典社交体系转译成真实、互惠、可退出的沟通能力。支持分析ChatLab已有数据和经同意可撤销的长期关系档案，不负责导出聊天软件数据。首次使用时为用户及一个或多个目标对象建立包含 MBTI、主观综合评分和关系背景的档案。 |
+
+### https://github.com/HKUSTDial/Supervisor-Skills.git
+
+| Skill | Description |
+| --- | --- |
+| `drawio-reconstruction` | Reconstructs reference images into high-fidelity, editable Draw.io files with rendered previews: native Draw.io elements carry text and structure, SVG covers simple icons that match the reference, and cropped or transparent PNGs preserve complex visuals. Use when the user wants a diagram image, research figure, architecture diagram, slide, UI screenshot, or image folder turned into `.drawio` XML; batch requests use a manifest with bounded parallelism when available and a full-fidelity serial fallback otherwise. |
+| `figure-designer` | Advises on the design of the three core figures in a technical paper: the Motivated Example (Figure 1), the Solution Overview (Methodology), and the Experimental Results figures. Recommends the right design paradigm, layout, labelling, and tool for each figure type, then runs a quality-control audit. Use when the user asks to 'design a figure', 'draw Figure 1', 'plot experiment results', 'choose the right chart type', 'which figure tool to use', or 'figure looks unprofessional'. |

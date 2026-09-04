@@ -24,30 +24,40 @@ class CuratedSkillSetTest(unittest.TestCase):
         names = {skill.name for skill in skills}
         excluded = {
             "ask-matt",
+            "benchmark-paper-template",
             "claude-handoff",
+            "deep-research",
             "git-guardrails-claude-code",
             "grill-me",
+            "idea-evaluator",
             "implement",
+            "intro-drafter",
             "improve-codebase-architecture",
             "loop-me",
             "migrate-to-shoehorn",
+            "paper-polish",
+            "paper-writer",
+            "pre-submission-reviewer",
             "scaffold-exercises",
             "setup-matt-pocock-skills",
             "setup-ts-deep-modules",
             "skill-creator",
             "tdd",
+            "tech-paper-template",
             "teach",
             "to-questionnaire",
             "to-spec",
             "to-tickets",
             "triage",
             "using-agent-skills",
+            "vibe-research-workflow",
             "wait-what",
         }
 
         self.assertEqual(warnings, [])
         self.assertTrue(excluded.isdisjoint(names))
-        self.assertEqual(len(skills), 60)
+        self.assertTrue({"drawio-reconstruction", "figure-designer"}.issubset(names))
+        self.assertEqual(len(skills), 62)
 
     def test_generated_catalog_matches_discovered_skills(self) -> None:
         root = SCRIPT_PATH.parents[1]
@@ -74,6 +84,28 @@ class DescriptionParsingTest(unittest.TestCase):
             self.assertEqual(
                 install_skills.read_description(skill),
                 'Example like "do this."',
+            )
+
+    def test_folds_multiline_yaml_description(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            skill_dir = Path(temp_dir) / "multiline"
+            skill_dir.mkdir()
+            (skill_dir / "SKILL.md").write_text(
+                "---\n"
+                "name: multiline\n"
+                "description: >-\n"
+                "  Designs research figures and audits their quality.\n"
+                "  Use when a paper figure needs improvement.\n"
+                "license: CC-BY-4.0\n"
+                "---\n",
+                encoding="utf-8",
+            )
+            skill = install_skills.Skill("multiline", skill_dir, "upstream")
+
+            self.assertEqual(
+                install_skills.read_description(skill),
+                "Designs research figures and audits their quality. "
+                "Use when a paper figure needs improvement.",
             )
 
 
