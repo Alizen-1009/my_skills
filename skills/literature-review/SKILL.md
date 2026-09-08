@@ -1,6 +1,6 @@
 ---
 name: literature-review
-description: Plan and conduct academic literature searches, source screening, evidence mapping, narrative reviews, scoping reviews, and systematic reviews with traceable citations. Use whenever the user asks to find papers, review the literature, identify a research gap, compare studies, build an evidence table, verify references, or assess whether sources support a claim. Do not use for manuscript polishing alone or pretend a quick search is a systematic review.
+description: Search and synthesize academic literature, identify research gaps, or verify scholarly citations and claim support. Match quick, narrative, scoping, or systematic review depth to the request.
 ---
 
 # Literature Review
@@ -32,6 +32,8 @@ Do not fabricate references or fill incomplete fields from memory. Mark unresolv
 
 ## Workflow
 
+For a citation check or quick scan, answer the bounded question directly with sources and read scope. Use the search logs, screening protocol, and evidence matrix below for multi-study reviews when they serve the requested rigor. Stop once the requested coverage and claim verification are met; broaden only for unresolved gaps. Reuse already verified records rather than repeating lookups.
+
 ### 1. Frame the question
 
 Capture enough structure to search accurately:
@@ -60,7 +62,7 @@ Before sending unpublished titles, abstracts, queries, or private material to an
 
 ### 3. Search transparently
 
-Record for each database:
+For a reproducible review, record for each database:
 
 - database or endpoint;
 - exact query;
@@ -114,8 +116,8 @@ A gap is stronger when it follows from explicit coverage analysis, contradictory
 
 Before delivery:
 
-- resolve DOI values through `https://doi.org/` or authoritative metadata;
-- reconcile title, author, year, and venue across records;
+- resolve unverified DOI values through `https://doi.org/` or authoritative metadata;
+- reconcile discrepancies in title, author, year, and venue across records;
 - distinguish preprints from published versions and use the intended version;
 - inspect retractions, corrections, or expressions of concern when material;
 - map every substantive literature claim to supporting source text;

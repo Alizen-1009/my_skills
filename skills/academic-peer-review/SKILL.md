@@ -1,6 +1,6 @@
 ---
 name: academic-peer-review
-description: Conduct evidence-based academic manuscript review, pre-submission self-review, methodology review, statistical review, revision verification, and reviewer-response audit. Use whenever the user asks to peer review, referee, critique, assess, stress-test, or check whether a paper or revision is publication-ready. Default to a read-only diagnostic review; do not rewrite the manuscript unless the user separately asks for revision.
+description: Diagnose academic manuscript quality, methodology, statistics, or revision completeness when the user requests peer review or publication-readiness assessment. Read-only unless revision is requested.
 ---
 
 # Academic Peer Review
@@ -54,58 +54,11 @@ Before criticizing, summarize neutrally:
 
 Check that the abstract, main text, figures, tables, and conclusion tell the same story.
 
-### 2. Review through distinct lenses
+### 2. Review at the requested depth
 
-Perform the relevant lenses independently, without pretending that one model is multiple independent human reviewers.
+For a full review or a focused methodology/statistics audit, read [review lenses](references/review-lenses.md) and apply the relevant sections. For a quick assessment or a bounded revision check, inspect the requested issue directly; do not expand into every lens or external literature search without a concrete need.
 
-#### Contribution and framing
-
-- Is the problem meaningful and the gap supported rather than asserted?
-- Is the contribution specific, bounded, and distinguishable from implementation detail?
-- Are novelty and generality claims proportional to the literature coverage and evidence?
-
-#### Methodology and design
-
-- Does the design answer the stated question?
-- Are assumptions, variables, units, inclusion criteria, controls, baselines, and procedures explicit?
-- Are leakage, confounding, selection bias, measurement bias, and alternative explanations addressed?
-- Could a qualified reader reproduce the analysis from the description and supplied artifacts?
-
-#### Statistics and quantitative evidence
-
-When applicable, check:
-
-- whether the test or model matches the design and data structure;
-- independence, distributional assumptions, multiplicity, missing data, and stopping rules;
-- effect sizes, uncertainty intervals, sample-size rationale, and sensitivity analysis;
-- consistency among text, tables, figures, and supplementary results;
-- whether “significant” is used statistically and whether practical significance is discussed.
-
-Do not recompute results without the necessary data and code. Label plausibility checks separately from verified calculations.
-
-#### Results and interpretation
-
-- Does every conclusion trace to reported evidence?
-- Are causal statements justified by the design?
-- Are null, negative, and contradictory results represented fairly?
-- Are subgroup, ablation, robustness, or generalization claims adequately supported?
-- Do figures show units, uncertainty, legends, sample definitions, and readable labels?
-
-#### Literature and citations
-
-- Are relevant competing explanations and contrary findings represented?
-- Does each citation support the attached claim rather than merely share a topic?
-- Are preprints, published versions, corrections, and retractions distinguished?
-
-Use `literature-review` when citations need external verification. Do not manufacture missing references during review.
-
-#### Ethics, transparency, and reproducibility
-
-As applicable, check consent or approval statements, conflicts, funding, data/code availability, AI-use disclosure, image manipulation risk, privacy, dual use, and discipline-specific reporting requirements. Flag a missing statement; do not infer misconduct without evidence.
-
-#### Writing and presentation
-
-Check organization, terminology, symbol consistency, internal cross-references, and whether the prose permits accurate interpretation. Keep copy-editing subordinate to scientific issues unless language blocks comprehension.
+Do not pretend that one model represents multiple independent human reviewers. Never claim to have checked unavailable data, calculations, or sources.
 
 ### 3. Challenge the strongest interpretation
 
@@ -129,7 +82,7 @@ Use statuses such as `resolved`, `partially resolved`, `not resolved`, or `canno
 
 ## Output Format
 
-Use this default structure unless the user or venue asks for another:
+For a quick or focused review, lead with findings and material limitations; omit empty sections. For a full report, use this default structure unless the user or venue asks for another:
 
 ```markdown
 # Review summary

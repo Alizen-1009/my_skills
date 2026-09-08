@@ -1,4 +1,0 @@
-interface:
-  display_name: "B200 Pod"
-  short_description: "通过 asicli 远程操作固定 B200 GPU Pod"
-  default_prompt: "Use $b200-pod to inspect or operate the B200 ASI GPU Pod safely."

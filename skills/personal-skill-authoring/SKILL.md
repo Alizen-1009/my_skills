@@ -1,81 +1,25 @@
 ---
 name: personal-skill-authoring
-description: Create and maintain personal Codex skills inside a reusable skills repository. Use when adding a new personal skill, adapting an upstream skill into this repo, deciding what belongs in SKILL.md versus scripts/references/assets, validating skill structure, or preparing a skill for local installation.
+description: Create, adapt, or maintain personal skills in this repository, including structure, triggers, and local validation.
 ---
 
 # Personal Skill Authoring
 
-## Overview
+Maintain personal skills under `skills/<skill-name>/SKILL.md`. Before adding one, check for an existing skill covering the same need. Filter upstream selections in `skill-sources.json`; leave upstream copies unchanged.
 
-Use this skill to add, adapt, and maintain skills in a personal Codex skills repository. Keep each skill small, installable, and focused on instructions another Codex session can reliably follow.
+## Skill design
 
-## Repository Workflow
+- Use frontmatter with `name` and a short `description` stating distinct task triggers. Avoid triggers such as “every edit” or “before finishing any task.”
+- Keep project invariants and tool-specific pitfalls; omit generic coaching the model can already apply.
+- Put shared essentials in `SKILL.md`. For multiple workflows, link branch-specific material from a small router with explicit reading conditions.
+- Add `scripts/` for deterministic helpers, `references/` for on-demand detail, and `assets/` for deliverable resources only when useful.
+- Prefer outcome and safety boundaries to fixed itineraries, mandatory skill chains, or blanket approval/test/search requirements.
+- Keep skill guidance subordinate to the user's explicit task within applicable safety and repository constraints.
 
-1. Confirm whether the work is a new personal skill, an adaptation of an upstream skill, or a maintenance update.
-2. Search existing `skills/` entries before creating a new one.
-3. Review relevant upstream examples under `external/` when useful, but avoid copying large sections blindly.
-4. Create or edit only the skill folder under `skills/<skill-name>/`.
-5. Validate the changed skill before finishing.
+Optional UI metadata belongs in `agents/openai.yaml`. Keep its default prompt consistent with the skill; do not reintroduce removed workflow gates there. Use `disable-model-invocation: true` only for deliberately manual skills; Pi then exposes them through `/skill:name` without adding their descriptions to the model prompt.
 
-## Skill Structure
-
-Every personal skill must have:
-
-```text
-skills/<skill-name>/
-  SKILL.md
-```
-
-Recommended UI metadata:
-
-```text
-skills/<skill-name>/
-  agents/openai.yaml
-```
-
-Add optional resources only when they materially improve repeatability:
-
-- `scripts/` for executable helpers that should be deterministic.
-- `references/` for detailed docs, schemas, examples, or policies loaded only when needed.
-- `assets/` for templates, images, fonts, starter files, or other output resources.
-
-Do not add README, quick reference, changelog, or installation guide files inside an individual skill. Put repository-level documentation at the repo root.
-
-## Writing SKILL.md
-
-Use this frontmatter shape:
-
-```markdown
----
-name: skill-name
-description: Clear description of what the skill does and exactly when to use it.
----
-```
-
-Keep the body concise:
-
-- Start with a short overview.
-- Give the operational workflow.
-- Link to resource files only when they should be read.
-- Prefer imperative instructions over general explanation.
-- Include examples only when they prevent ambiguity.
-
-## Adapting Upstream Skills
-
-When adapting from `external/mattpocock-skills` or `external/addyosmani-agent-skills`:
-
-1. Identify the source skill and read its `SKILL.md`.
-2. Decide whether to use it as-is, fork a personal variant, or combine ideas into an existing personal skill.
-3. Preserve the useful workflow, but rewrite triggers, paths, tools, and assumptions for this repository.
-4. Keep attribution in commit messages or repo docs when copying meaningful content.
-5. Validate the resulting personal skill as its own installable artifact.
+When adapting upstream material, read the source skill and retain attribution in repository documentation. Keep repository installation instructions outside individual skill folders.
 
 ## Validation
 
-Run:
-
-```bash
-python3 scripts/validate-skills.py
-```
-
-Fix any invalid frontmatter, missing `SKILL.md`, mismatched folder/name, or stale template placeholders before finishing.
+Run `python3 scripts/validate-skills.py` after personal skill edits. Regenerate the catalog with `python3 scripts/install-skills.py --write-catalog` and verify it with `--check-catalog`. No model benchmark or unrelated installer test run is required for a prose-only edit unless a concrete risk calls for one.

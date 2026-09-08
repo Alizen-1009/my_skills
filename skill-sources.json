@@ -7,6 +7,7 @@
       "recursive": false,
       "enabled": true,
       "exclude": [
+        "b200-pod",
         "tdd"
       ]
     },
@@ -21,6 +22,7 @@
       "exclude": [
         "ask-matt",
         "claude-handoff",
+        "code-review",
         "design-an-interface",
         "git-guardrails-claude-code",
         "grill-me",
@@ -30,6 +32,7 @@
         "migrate-to-shoehorn",
         "qa",
         "request-refactor-plan",
+        "research",
         "scaffold-exercises",
         "setup-matt-pocock-skills",
         "setup-ts-deep-modules",
@@ -52,6 +55,20 @@
       "recursive": false,
       "enabled": true,
       "exclude": [
+        "browser-testing-with-devtools",
+        "code-review-and-quality",
+        "code-simplification",
+        "context-engineering",
+        "debugging-and-error-recovery",
+        "documentation-and-adrs",
+        "doubt-driven-development",
+        "git-workflow-and-versioning",
+        "incremental-implementation",
+        "interview-me",
+        "planning-and-task-breakdown",
+        "source-driven-development",
+        "spec-driven-development",
+        "test-driven-development",
         "using-agent-skills"
       ]
     },
@@ -79,7 +96,10 @@
       "path": "external/karpathy-guidelines",
       "skills_path": "skills",
       "recursive": false,
-      "enabled": true
+      "enabled": true,
+      "exclude": [
+        "karpathy-guidelines"
+      ]
     },
     {
       "id": "goutoujunshi",

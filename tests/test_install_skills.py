@@ -25,7 +25,25 @@ class CuratedSkillSetTest(unittest.TestCase):
         excluded = {
             "ask-matt",
             "benchmark-paper-template",
+            "b200-pod",
             "claude-handoff",
+            "browser-testing-with-devtools",
+            "code-review",
+            "code-review-and-quality",
+            "code-simplification",
+            "context-engineering",
+            "debugging-and-error-recovery",
+            "documentation-and-adrs",
+            "doubt-driven-development",
+            "git-workflow-and-versioning",
+            "incremental-implementation",
+            "interview-me",
+            "karpathy-guidelines",
+            "planning-and-task-breakdown",
+            "research",
+            "source-driven-development",
+            "spec-driven-development",
+            "test-driven-development",
             "deep-research",
             "git-guardrails-claude-code",
             "grill-me",
@@ -57,7 +75,7 @@ class CuratedSkillSetTest(unittest.TestCase):
         self.assertEqual(warnings, [])
         self.assertTrue(excluded.isdisjoint(names))
         self.assertTrue({"drawio-reconstruction", "figure-designer"}.issubset(names))
-        self.assertEqual(len(skills), 62)
+        self.assertEqual(len(skills), 44)
 
     def test_generated_catalog_matches_discovered_skills(self) -> None:
         root = SCRIPT_PATH.parents[1]
@@ -68,6 +86,36 @@ class CuratedSkillSetTest(unittest.TestCase):
             (root / "SKILLS.md").read_text(encoding="utf-8"),
             install_skills.render_skill_catalog(skills),
         )
+
+
+class CatalogInvocationTest(unittest.TestCase):
+    def test_marks_only_frontmatter_opt_out_as_manual(self) -> None:
+        cases = [
+            ("disable-model-invocation: true\n", "", True),
+            ("disable-model-invocation: true # explicit opt-out\n", "", True),
+            ("disable-model-invocation: false\n", "", False),
+            ("", "disable-model-invocation: true\n", False),
+        ]
+        for frontmatter, body, manual in cases:
+            with self.subTest(frontmatter=frontmatter, body=body):
+                with tempfile.TemporaryDirectory() as temp_dir:
+                    skill_dir = Path(temp_dir) / "example"
+                    skill_dir.mkdir()
+                    (skill_dir / "SKILL.md").write_text(
+                        "---\nname: example\ndescription: Example skill.\n"
+                        + frontmatter + "---\n" + body,
+                        encoding="utf-8",
+                    )
+                    skill = install_skills.Skill("example", skill_dir, "local")
+                    catalog = install_skills.render_skill_catalog([skill])
+                    invocation = (
+                        "**仅手动调用**：`/skill:example`"
+                        if manual else "自动或手动"
+                    )
+                    self.assertIn(
+                        f"| `example` | {invocation} | Example skill. |",
+                        catalog,
+                    )
 
 
 class DescriptionParsingTest(unittest.TestCase):
@@ -202,11 +250,11 @@ class PruneManagedLinksTest(unittest.TestCase):
             self.assertTrue(unrelated_alias.is_symlink())
             self.assertEqual(messages, ["[PRUNE] remove"])
 
-    def test_full_dry_run_previews_pruning_without_a_conflicting_install(self) -> None:
+    def test_full_dry_run_prunes_a_fully_excluded_source(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir) / "repo"
-            for name in ("keep", "remove"):
-                skill_dir = root / "skills" / name
+            for name, parent in (("keep", "skills"), ("remove", "external/source/skills")):
+                skill_dir = root / parent / name
                 skill_dir.mkdir(parents=True)
                 (skill_dir / "SKILL.md").write_text(
                     f"---\nname: {name}\ndescription: Test skill.\n---\n",
@@ -218,7 +266,13 @@ class PruneManagedLinksTest(unittest.TestCase):
     {
       "id": "local",
       "kind": "local",
-      "path": "skills",
+      "path": "skills"
+    },
+    {
+      "id": "excluded",
+      "kind": "git-submodule",
+      "path": "external/source",
+      "skills_path": "skills",
       "exclude": ["remove"]
     }
   ]
@@ -229,7 +283,7 @@ class PruneManagedLinksTest(unittest.TestCase):
             destination = Path(temp_dir) / "installed"
             destination.mkdir()
             stale = destination / "remove"
-            stale.symlink_to(root / "skills/remove", target_is_directory=True)
+            stale.symlink_to(root / "external/source/skills/remove", target_is_directory=True)
             output = io.StringIO()
 
             with (

@@ -113,6 +113,8 @@ After changing package or extension configuration in a running Pi process, run `
 
 Local skills live under `skills/`. Upstream skill repositories are Git submodules under `external/` and are filtered by `skill-sources.json`.
 
+The default set favors specialist workflows over generic always-triggered coding instructions. See [the Astra instruction audit](INSTRUCTION_AUDIT.md) for sources, exclusions, and remaining package-level constraints. An initialized source may remain enabled with every skill explicitly excluded so the installer can prune its old managed links safely.
+
 List the authoritative install set:
 
 ```bash

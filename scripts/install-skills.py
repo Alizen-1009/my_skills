@@ -8,7 +8,7 @@ import json
 import os
 import shutil
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 
@@ -240,6 +240,19 @@ def read_description(skill: Skill) -> str:
     return ""
 
 
+def is_manual_only(skill: Skill) -> bool:
+    lines = (skill.path / "SKILL.md").read_text(encoding="utf-8", errors="replace").splitlines()
+    if not lines or lines[0] != "---":
+        return False
+    for line in lines[1:]:
+        if line == "---":
+            break
+        if line.startswith("disable-model-invocation:"):
+            value = line.split(":", 1)[1].split("#", 1)[0].strip()
+            return value.lower() == "true"
+    return False
+
+
 def escape_markdown_cell(value: str) -> str:
     return value.replace("|", "\\|").replace("\n", " ")
 
@@ -270,13 +283,17 @@ def render_skill_catalog(skills: list[Skill]) -> str:
             [
                 f"### {source}",
                 "",
-                "| Skill | Description |",
-                "| --- | --- |",
+                "| Skill | 调用方式（Pi） | Description |",
+                "| --- | --- | --- |",
             ]
         )
         for skill in sorted(source_skills, key=lambda item: item.name):
             description = escape_markdown_cell(read_description(skill))
-            lines.append(f"| `{skill.name}` | {description} |")
+            invocation = (
+                f"**仅手动调用**：`/skill:{skill.name}`"
+                if is_manual_only(skill) else "自动或手动"
+            )
+            lines.append(f"| `{skill.name}` | {invocation} | {description} |")
         lines.append("")
 
     return "\n".join(lines).rstrip() + "\n"
@@ -406,7 +423,9 @@ def main() -> int:
     unusable_sources = [
         source
         for source in sources
-        if not source.root.is_dir() or not discover_skills(source)
+        # An initialized source can legitimately have every skill excluded.
+        if not source.root.is_dir()
+        or not discover_skills(replace(source, exclude=frozenset()))
     ]
     if unusable_sources:
         for source in unusable_sources:

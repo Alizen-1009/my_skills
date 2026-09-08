@@ -1,6 +1,6 @@
 ---
 name: academic-writing
-description: Chinese-first, evidence-aware academic writing and revision for papers, theses, abstracts, introductions, methods, results, discussions, conclusions, related work, rebuttals, and responses to reviewers. Use whenever the user asks to draft, rewrite, polish, shorten, translate, restructure, or strengthen academic manuscript prose. Do not use it for literature searching alone, formal peer review, or a Word/PPT deliverable whose main challenge is file generation.
+description: Draft, revise, translate, or polish academic manuscript prose and reviewer responses without inventing evidence. For source searching or diagnostic peer review, use the corresponding skill.
 ---
 
 # Academic Writing
