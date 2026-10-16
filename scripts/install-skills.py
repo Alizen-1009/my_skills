@@ -339,9 +339,10 @@ def install_skill(skill: Skill, dest_dir: Path, mode: str, force: bool, dry_run:
     dest = dest_dir / skill.name
 
     if dest.exists() or dest.is_symlink():
-        if is_link_to(dest, skill.path):
+        managed_link = is_link_to(dest, skill.path)
+        if managed_link and mode == "symlink":
             return f"[OK] {skill.name} already linked"
-        if not force:
+        if not force and not (managed_link and mode == "copy"):
             return f"[SKIP] {skill.name} exists at {dest}"
         if dry_run:
             return f"[DRY] replace {dest} with {mode} from {skill.path}"
@@ -355,7 +356,7 @@ def install_skill(skill: Skill, dest_dir: Path, mode: str, force: bool, dry_run:
 
     dest_dir.mkdir(parents=True, exist_ok=True)
     if mode == "copy":
-        shutil.copytree(skill.path, dest, symlinks=True)
+        shutil.copytree(skill.path, dest, symlinks=False)
     else:
         dest.symlink_to(skill.path, target_is_directory=True)
 
@@ -379,8 +380,8 @@ def main() -> int:
     parser.add_argument(
         "--mode",
         choices=("symlink", "copy"),
-        default="symlink",
-        help="Install by symlink for easy updates or copy for a standalone install.",
+        default="copy",
+        help="Copy standalone skills by default; symlink mode requires keeping the source repository.",
     )
     parser.add_argument(
         "--force",

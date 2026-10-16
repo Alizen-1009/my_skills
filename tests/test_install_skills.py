@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import io
+import shutil
 import sys
 import tempfile
 import unittest
@@ -325,6 +326,89 @@ class PruneManagedLinksTest(unittest.TestCase):
 
             self.assertTrue(stale.is_symlink())
             self.assertEqual(messages, ["[DRY] prune remove"])
+
+
+class StandaloneCopyTest(unittest.TestCase):
+    def make_skill(self, root: Path) -> install_skills.Skill:
+        source = root / "repo/skills/example"
+        source.mkdir(parents=True)
+        (source / "SKILL.md").write_text("Example instructions", encoding="utf-8")
+        support = root / "repo/support"
+        support.mkdir()
+        (support / "helper.txt").write_text("Helper contents", encoding="utf-8")
+        (source / "references").symlink_to(support, target_is_directory=True)
+        (source / "helper.txt").symlink_to(support / "helper.txt")
+        return install_skills.Skill("example", source, "local")
+
+    def test_cli_defaults_to_standalone_copy(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            skill = self.make_skill(root)
+            repo = root / "repo"
+            (repo / "skill-sources.json").write_text(
+                '{"sources": [{"id": "local", "kind": "local", "path": "skills"}]}',
+                encoding="utf-8",
+            )
+            dest = root / "installed"
+            with (
+                patch.object(install_skills, "repo_root", return_value=repo),
+                patch.object(sys, "argv", [str(SCRIPT_PATH), "--dest", str(dest)]),
+                redirect_stdout(io.StringIO()),
+            ):
+                self.assertEqual(install_skills.main(), 0)
+            shutil.rmtree(repo)
+            installed = dest / skill.name
+            self.assertFalse(installed.is_symlink())
+            self.assertFalse((installed / "references").is_symlink())
+            self.assertFalse((installed / "helper.txt").is_symlink())
+            self.assertEqual((installed / "SKILL.md").read_text(), "Example instructions")
+            for helper in (installed / "helper.txt", installed / "references/helper.txt"):
+                self.assertEqual(helper.read_text(), "Helper contents")
+
+    def test_copy_converts_current_source_link_without_force(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            skill = self.make_skill(root)
+            dest = root / "installed"
+            dest.mkdir()
+            installed = dest / skill.name
+            installed.symlink_to(skill.path, target_is_directory=True)
+            message = install_skills.install_skill(skill, dest, "copy", False, True)
+            self.assertIn("[DRY] replace", message)
+            self.assertTrue(installed.is_symlink())
+            install_skills.install_skill(skill, dest, "copy", False, False)
+            self.assertFalse(installed.is_symlink())
+            self.assertTrue((skill.path / "SKILL.md").is_file())
+            shutil.rmtree(root / "repo")
+            self.assertEqual((installed / "SKILL.md").read_text(), "Example instructions")
+
+    def test_copy_preserves_existing_destinations_without_force(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            skill = self.make_skill(root)
+            dest = root / "installed"
+            dest.mkdir()
+            installed = dest / skill.name
+            installed.mkdir()
+            (installed / "custom.txt").write_text("Keep me", encoding="utf-8")
+            self.assertIn("[SKIP]", install_skills.install_skill(skill, dest, "copy", False, False))
+            self.assertEqual((installed / "custom.txt").read_text(), "Keep me")
+            shutil.rmtree(installed)
+            unrelated = root / "other"
+            unrelated.mkdir()
+            installed.symlink_to(unrelated, target_is_directory=True)
+            self.assertIn("[SKIP]", install_skills.install_skill(skill, dest, "copy", False, False))
+            self.assertTrue(installed.is_symlink())
+            self.assertEqual(installed.resolve(), unrelated.resolve())
+
+    def test_explicit_symlink_mode_still_links(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            skill = self.make_skill(root)
+            dest = root / "installed"
+            install_skills.install_skill(skill, dest, "symlink", False, False)
+            self.assertTrue((dest / skill.name).is_symlink())
+            self.assertIn("already linked", install_skills.install_skill(skill, dest, "symlink", False, False))
 
 
 class DetectTargetsTest(unittest.TestCase):
