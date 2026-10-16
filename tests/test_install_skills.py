@@ -63,7 +63,6 @@ class CuratedSkillSetTest(unittest.TestCase):
             "skill-creator",
             "tdd",
             "tech-paper-template",
-            "teach",
             "to-questionnaire",
             "to-spec",
             "to-tickets",
@@ -75,8 +74,10 @@ class CuratedSkillSetTest(unittest.TestCase):
 
         self.assertEqual(warnings, [])
         self.assertTrue(excluded.isdisjoint(names))
-        self.assertTrue({"drawio-reconstruction", "figure-designer"}.issubset(names))
-        self.assertEqual(len(skills), 44)
+        self.assertTrue(
+            {"drawio-reconstruction", "figure-designer", "teach"}.issubset(names)
+        )
+        self.assertEqual(len(skills), 45)
 
     def test_generated_catalog_matches_discovered_skills(self) -> None:
         root = SCRIPT_PATH.parents[1]

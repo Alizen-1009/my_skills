@@ -2,14 +2,14 @@
 
 > 此文件由 `python3 scripts/install-skills.py --write-catalog` 自动生成，请勿手工维护。
 
-当前默认安装集共 **44** 个 Skills。
+当前默认安装集共 **45** 个 Skills。
 
 ## 来源统计
 
 | 来源 | 数量 |
 | --- | ---: |
 | local | 6 |
-| https://github.com/mattpocock/skills | 15 |
+| https://github.com/mattpocock/skills | 16 |
 | https://github.com/addyosmani/agent-skills | 9 |
 | https://github.com/anthropics/skills | 11 |
 | https://github.com/powerycy/goutoujunshi.git | 1 |
@@ -41,6 +41,7 @@
 | `prototype` | 自动或手动 | Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like. |
 | `resolving-merge-conflicts` | 自动或手动 | Use when you need to resolve an in-progress git merge/rebase conflict. |
 | `setup-pre-commit` | 自动或手动 | Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing. |
+| `teach` | **仅手动调用**：`/skill:teach` | Teach the user a new skill or concept, within this workspace. |
 | `wayfinder` | **仅手动调用**：`/skill:wayfinder` | Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear. |
 | `wizard` | 自动或手动 | Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself. |
 | `writing-beats` | **仅手动调用**：`/skill:writing-beats` | Writing, exploit — assemble raw material into a journey of beats, grounding each term before a beat leans on it. |
