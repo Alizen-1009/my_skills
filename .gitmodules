@@ -16,3 +16,6 @@
 [submodule "external/supervisor-skills"]
 	path = external/supervisor-skills
 	url = https://github.com/HKUSTDial/Supervisor-Skills.git
+[submodule "external/ai-infra-auto-driven-skills"]
+	path = external/ai-infra-auto-driven-skills
+	url = https://github.com/BBuf/AI-Infra-Auto-Driven-SKILLS.git

@@ -77,7 +77,39 @@ class CuratedSkillSetTest(unittest.TestCase):
         self.assertTrue(
             {"drawio-reconstruction", "figure-designer", "teach"}.issubset(names)
         )
-        self.assertEqual(len(skills), 45)
+        self.assertEqual(len(skills), 55)
+
+    def test_ai_infra_source_includes_nested_skills_and_pr_history(self) -> None:
+        root = SCRIPT_PATH.parents[1]
+        source = next(
+            source for source in install_skills.load_sources(root)
+            if source.id == "ai-infra-auto-driven-skills"
+        )
+        skills = install_skills.discover_skills(source)
+        self.assertEqual(
+            {skill.name for skill in skills},
+            {
+                "llm-pipeline-analysis",
+                "llm-serving-auto-benchmark",
+                "llm-serving-capacity-planner",
+                "llm-torch-profiler-analysis",
+                "model-architecture-diagram",
+                "model-compute-simulation",
+                "model-pr-optimization-history",
+                "sglang-model-day0-support",
+                "sglang-prod-incident-triage",
+                "torch-profiler-layer-track",
+            },
+        )
+        paths = {skill.name: skill.path for skill in skills}
+        self.assertEqual(
+            paths["sglang-model-day0-support"],
+            source.root / "skills/model-optimization/sglang-model-day0-support",
+        )
+        self.assertEqual(
+            paths["model-pr-optimization-history"],
+            source.root / "model-pr-optimization-history",
+        )
 
     def test_generated_catalog_matches_discovered_skills(self) -> None:
         root = SCRIPT_PATH.parents[1]

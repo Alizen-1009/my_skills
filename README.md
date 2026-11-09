@@ -146,6 +146,16 @@ Update upstream repositories intentionally, review the changes, and commit the n
 git submodule update --remote --merge
 ```
 
+### AI infrastructure upstream
+
+`external/ai-infra-auto-driven-skills` tracks [BBuf/AI-Infra-Auto-Driven-SKILLS](https://github.com/BBuf/AI-Infra-Auto-Driven-SKILLS). Its explicit allowlist enables ten skills covering serving benchmarks, capacity planning, profiler analysis, model compute/architecture, SGLang Day-0 support, incident triage, and model PR history. Root-recursive discovery includes both the nested Day-0 skill and the root-level history knowledge base. The installer uses the history directory name `model-pr-optimization-history`; upstream declares its skill name as `model-pr-history-knowledge`.
+
+The video skill remains available in the submodule but is not enabled by default: it requires a substantial toolchain and prescribes self-modification and upstream PR submission. Do not edit upstream copies or perform external submissions without authorization.
+
+**Portability exception:** unlike self-contained skills, this collection contains cross-directory references and commands that assume the upstream repository layout. Keep the complete submodule checkout, resolve references there, and adapt command working directories rather than assuming installed copies contain every referenced resource. GPU/framework environments and optional Python dependencies are provisioned separately; installation does not run upstream scripts. Only replay trusted incident dumps in an isolated, authorized environment, and review model-code trust and server exposure before running benchmarks.
+
+The reviewed revision has no tracked LICENSE file despite plugin metadata referring to one. This submodule registration does not establish redistribution permission; clarify licensing before redistributing its content.
+
 ### Other harnesses
 
 Pi is the default target. Skills can also be installed without configuring Pi:

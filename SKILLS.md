@@ -2,7 +2,7 @@
 
 > 此文件由 `python3 scripts/install-skills.py --write-catalog` 自动生成，请勿手工维护。
 
-当前默认安装集共 **45** 个 Skills。
+当前默认安装集共 **55** 个 Skills。
 
 ## 来源统计
 
@@ -14,6 +14,7 @@
 | https://github.com/anthropics/skills | 11 |
 | https://github.com/powerycy/goutoujunshi.git | 1 |
 | https://github.com/HKUSTDial/Supervisor-Skills.git | 2 |
+| https://github.com/BBuf/AI-Infra-Auto-Driven-SKILLS.git | 10 |
 
 ## Skills
 
@@ -34,7 +35,7 @@
 | --- | --- | --- |
 | `codebase-design` | 自动或手动 | Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary. |
 | `diagnosing-bugs` | 自动或手动 | Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow. |
-| `domain-modeling` | 自动或手动 | Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model. |
+| `domain-modeling` | 自动或手动 | Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR. |
 | `grill-with-docs` | **仅手动调用**：`/skill:grill-with-docs` | A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go. |
 | `grilling` | 自动或手动 | Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases. |
 | `handoff` | **仅手动调用**：`/skill:handoff` | Compact the current conversation into a handoff document for another agent to pick up. |
@@ -42,12 +43,12 @@
 | `resolving-merge-conflicts` | 自动或手动 | Use when you need to resolve an in-progress git merge/rebase conflict. |
 | `setup-pre-commit` | 自动或手动 | Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing. |
 | `teach` | **仅手动调用**：`/skill:teach` | Teach the user a new skill or concept, within this workspace. |
-| `wayfinder` | **仅手动调用**：`/skill:wayfinder` | Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear. |
+| `wayfinder` | **仅手动调用**：`/skill:wayfinder` | Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear. |
 | `wizard` | 自动或手动 | Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself. |
-| `writing-beats` | **仅手动调用**：`/skill:writing-beats` | Writing, exploit — assemble raw material into a journey of beats, grounding each term before a beat leans on it. |
+| `writing-beats` | **仅手动调用**：`/skill:writing-beats` | Writing, exploit; assemble raw material into a journey of beats, grounding each term before a beat leans on it. |
 | `writing-for-agents` | 自动或手动 | Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md. |
-| `writing-fragments` | **仅手动调用**：`/skill:writing-fragments` | Writing, explore — mine raw fragments, no structure yet. |
-| `writing-shape` | **仅手动调用**：`/skill:writing-shape` | Writing, exploit — shape raw material into an article, paragraph by paragraph. |
+| `writing-fragments` | **仅手动调用**：`/skill:writing-fragments` | Writing, explore: mine raw fragments, no structure yet. |
+| `writing-shape` | **仅手动调用**：`/skill:writing-shape` | Writing, exploit: shape raw material into an article, paragraph by paragraph. |
 
 ### https://github.com/addyosmani/agent-skills
 
@@ -55,13 +56,13 @@
 | --- | --- | --- |
 | `api-and-interface-design` | 自动或手动 | Guides stable API and interface design. Use when designing APIs, module boundaries, or any public interface. Use when creating REST or GraphQL endpoints, defining type contracts between modules, or establishing boundaries between frontend and backend. |
 | `ci-cd-and-automation` | 自动或手动 | Automates CI/CD pipeline setup. Use when setting up or modifying build and deployment pipelines. Use when you need to automate quality gates, configure test runners in CI, or establish deployment strategies. |
-| `deprecation-and-migration` | 自动或手动 | Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when deciding whether to maintain or sunset existing code. |
+| `deprecation-and-migration` | 自动或手动 | Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when migrating a database schema in production, such as renaming or dropping a column without downtime (expand/contract). Use when deciding whether to maintain or sunset existing code. |
 | `frontend-ui-engineering` | 自动或手动 | Builds production-quality, accessible, responsive user-facing UIs. Use when building or modifying interfaces and pages, creating components, implementing layouts, meeting WCAG accessibility requirements, managing state, or when the output needs to look and feel production-quality rather than AI-generated. |
 | `idea-refine` | 自动或手动 | Refines raw ideas into sharp, actionable concepts through structured divergent and convergent thinking. Use when an idea is still vague, when you need to stress-test assumptions before committing to a plan, or when you want to expand options before converging on one. Triggers on "ideate", "refine this idea", or "stress-test my plan". |
 | `observability-and-instrumentation` | 自动或手动 | Instruments code so production behavior is visible and diagnosable. Use when adding logging, metrics, tracing, or alerting. Use when shipping any feature that runs in production and you need evidence it works. Use when production issues are reported but you can't tell what happened from the available data. |
 | `performance-optimization` | 自动或手动 | Optimizes application performance across frontend, backend, queries, and databases. Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement, when N+1 query patterns need fixing, or when profiling reveals bottlenecks. |
-| `security-and-hardening` | 自动或手动 | Hardens code against vulnerabilities. Use when handling user input, authentication, data storage, or external integrations. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. |
-| `shipping-and-launch` | 自动或手动 | Prepares production launches. Use when preparing to deploy to production. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a rollback strategy. |
+| `security-and-hardening` | 自动或手动 | Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved. |
+| `shipping-and-launch` | 自动或手动 | Prepares production launches. Use when preparing to deploy to production, or when asking what needs to be in place before shipping. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a rollback strategy. |
 
 ### https://github.com/anthropics/skills
 
@@ -91,3 +92,18 @@
 | --- | --- | --- |
 | `drawio-reconstruction` | 自动或手动 | Reconstructs reference images into high-fidelity, editable Draw.io files with rendered previews: native Draw.io elements carry text and structure, SVG covers simple icons that match the reference, and cropped or transparent PNGs preserve complex visuals. Use when the user wants a diagram image, research figure, architecture diagram, slide, UI screenshot, or image folder turned into `.drawio` XML; batch requests use a manifest with bounded parallelism when available and a full-fidelity serial fallback otherwise. |
 | `figure-designer` | 自动或手动 | Advises on the design of the three core figures in a technical paper: the Motivated Example (Figure 1), the Solution Overview (Methodology), and the Experimental Results figures. Recommends the right design paradigm, layout, labelling, and tool for each figure type, then runs a quality-control audit. Use when the user asks to 'design a figure', 'draw Figure 1', 'plot experiment results', 'choose the right chart type', 'which figure tool to use', or 'figure looks unprofessional'. |
+
+### https://github.com/BBuf/AI-Infra-Auto-Driven-SKILLS.git
+
+| Skill | 调用方式（Pi） | Description |
+| --- | --- | --- |
+| `llm-pipeline-analysis` | 自动或手动 | Inspect LLM torch profiler traces at forward-pass, layer, and kernel level. Use when you need layer timings, anchor-kernel boundaries, representative kernel flows, or Perfetto time ranges. |
+| `llm-serving-auto-benchmark` | 自动或手动 | Framework-independent LLM serving benchmark skill for comparing SGLang, vLLM, TensorRT-LLM, TokenSpeed, or another serving framework. Use when a user wants to find the best deployment command for one model across multiple serving frameworks under the same workload, GPU budget, and latency SLA. |
+| `llm-serving-capacity-planner` | 自动或手动 | Parse SGLang/vLLM startup logs to explain GPU memory use and request capacity. Use for KV cache budget, mem-fraction-static comparisons, OOM triage, and max-concurrency estimates. |
+| `llm-torch-profiler-analysis` | 自动或手动 | Analyze existing Torch Profiler Chrome traces or capture from SGLang, vLLM, TensorRT-LLM and TokenSpeed servers. Return kernel attribution, overlap opportunities and fusion patterns; use for model dispatch, CUDA Graph gaps, stream contention or exposed kernel tails. Includes existing SGLang Omni traces. |
+| `model-architecture-diagram` | 自动或手动 | Return public original model architecture diagrams for user-specified LLM, VLM, MoE, diffusion, OCR, and SGLang/sgl-cookbook model families. Use when the user asks for a model structure chart, architecture diagram, or rendered image link for a specific model such as DeepSeek, GLM, Qwen, Kimi, MiniMax, Step, Hunyuan, or Qwen3-VL. |
+| `model-compute-simulation` | 自动或手动 | Build an operator-level compute template for an LLM and estimate FLOPs/MFU for a serving shape. Use when you need tensor shapes, per-op FLOPs, kernel-to-op MFU mapping, or parallelism what-if analysis. |
+| `model-pr-optimization-history` | 自动或手动 | Use when an SGLang, vLLM, TensorRT-LLM, or TokenSpeed serving/model optimization task needs prior model-family PR evidence. Query and read the PR-driven history docs under model-pr-optimization-history before choosing source paths, fast paths, kernel/fusion ideas, regression risks, or validation lanes. |
+| `sglang-model-day0-support` | 自动或手动 | Build or audit an evidence-driven SGLang Day-0 support program for a new LLM, VLM, MoE, hybrid-attention, or speculative-decoding model. Use when Codex needs to map a model architecture into SGLang runtime work, design a public support PR DAG, create validation and release gates, sanitize private development evidence, distinguish Day-0 requirements from later fixes or optimizations, or review whether an existing model-support PR is release-ready. |
+| `sglang-prod-incident-triage` | 自动或手动 | Replay-first debug flow for SGLang serving problems. Use when a live or recent server shows health-check failures, latency or throughput regressions, queue growth, timeouts, distributed stalls, crash dumps, wrong outputs after deploys, or PD/EP/HiCache issues, and the job is to turn the problem into a replay plus the right next debug tool. |
+| `torch-profiler-layer-track` | 自动或手动 | Add verified layer-number guides and compact GPU display lanes to an existing Torch Profiler Chrome JSON trace. Use for L0/L1/... navigation or traces with hundreds of CUDA Graph stream rows. Changes visualization, not runtime streams. |

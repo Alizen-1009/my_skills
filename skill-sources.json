@@ -126,6 +126,27 @@
         "drawio-reconstruction",
         "figure-designer"
       ]
+    },
+    {
+      "id": "ai-infra-auto-driven-skills",
+      "kind": "git-submodule",
+      "repo": "https://github.com/BBuf/AI-Infra-Auto-Driven-SKILLS.git",
+      "path": "external/ai-infra-auto-driven-skills",
+      "skills_path": ".",
+      "recursive": true,
+      "enabled": true,
+      "include": [
+        "llm-pipeline-analysis",
+        "llm-serving-auto-benchmark",
+        "llm-serving-capacity-planner",
+        "llm-torch-profiler-analysis",
+        "model-architecture-diagram",
+        "model-compute-simulation",
+        "model-pr-optimization-history",
+        "sglang-model-day0-support",
+        "sglang-prod-incident-triage",
+        "torch-profiler-layer-track"
+      ]
     }
   ]
 }
