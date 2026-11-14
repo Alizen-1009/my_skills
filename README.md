@@ -156,6 +156,12 @@ The video skill remains available in the submodule but is not enabled by default
 
 The reviewed revision has no tracked LICENSE file despite plugin metadata referring to one. This submodule registration does not establish redistribution permission; clarify licensing before redistributing its content.
 
+### Humanizer upstream
+
+`external/humanizer` tracks [blader/humanizer](https://github.com/blader/humanizer) as a pinned submodule (MIT, Copyright (c) 2025 Siqi Chen). The root-level `SKILL.md` is installed as `humanizer`, with its license and OpenAI skill metadata retained. Upstream files are kept unchanged; no separate Pi package installation is needed.
+
+Use it to rewrite AI-sounding prose while preserving meaning and matching a supplied writing sample. It checks 26 writing patterns; it is not an AI-detector bypass tool or a factual-verification substitute. In Pi, invoke `/skill:humanizer`; in Codex, invoke `$humanizer`. For academic evidence and citations, continue to use the academic writing and literature review skills.
+
 ### Other harnesses
 
 Pi is the default target. Skills can also be installed without configuring Pi:

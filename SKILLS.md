@@ -2,7 +2,7 @@
 
 > 此文件由 `python3 scripts/install-skills.py --write-catalog` 自动生成，请勿手工维护。
 
-当前默认安装集共 **55** 个 Skills。
+当前默认安装集共 **56** 个 Skills。
 
 ## 来源统计
 
@@ -15,6 +15,7 @@
 | https://github.com/powerycy/goutoujunshi.git | 1 |
 | https://github.com/HKUSTDial/Supervisor-Skills.git | 2 |
 | https://github.com/BBuf/AI-Infra-Auto-Driven-SKILLS.git | 10 |
+| https://github.com/blader/humanizer.git | 1 |
 
 ## Skills
 
@@ -107,3 +108,9 @@
 | `sglang-model-day0-support` | 自动或手动 | Build or audit an evidence-driven SGLang Day-0 support program for a new LLM, VLM, MoE, hybrid-attention, or speculative-decoding model. Use when Codex needs to map a model architecture into SGLang runtime work, design a public support PR DAG, create validation and release gates, sanitize private development evidence, distinguish Day-0 requirements from later fixes or optimizations, or review whether an existing model-support PR is release-ready. |
 | `sglang-prod-incident-triage` | 自动或手动 | Replay-first debug flow for SGLang serving problems. Use when a live or recent server shows health-check failures, latency or throughput regressions, queue growth, timeouts, distributed stalls, crash dumps, wrong outputs after deploys, or PD/EP/HiCache issues, and the job is to turn the problem into a replay plus the right next debug tool. |
 | `torch-profiler-layer-track` | 自动或手动 | Add verified layer-number guides and compact GPU display lanes to an existing Torch Profiler Chrome JSON trace. Use for L0/L1/... navigation or traces with hundreds of CUDA Graph stream rows. Changes visualization, not runtime streams. |
+
+### https://github.com/blader/humanizer.git
+
+| Skill | 调用方式（Pi） | Description |
+| --- | --- | --- |
+| `humanizer` | 自动或手动 | Rewrite AI-sounding text so it reads like the writer without changing what it says. Use when editing or reviewing prose for AI tells: not-X-but-Y contrasts, one-line closers, staged openers, forced triads, dashes everywhere, inflated claims, sales language, stock AI words, bold labels, or filler. |

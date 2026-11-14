@@ -77,7 +77,7 @@ class CuratedSkillSetTest(unittest.TestCase):
         self.assertTrue(
             {"drawio-reconstruction", "figure-designer", "teach"}.issubset(names)
         )
-        self.assertEqual(len(skills), 55)
+        self.assertEqual(len(skills), 56)
 
     def test_ai_infra_source_includes_nested_skills_and_pr_history(self) -> None:
         root = SCRIPT_PATH.parents[1]
@@ -110,6 +110,19 @@ class CuratedSkillSetTest(unittest.TestCase):
             paths["model-pr-optimization-history"],
             source.root / "model-pr-optimization-history",
         )
+
+    def test_humanizer_source_discovers_root_skill(self) -> None:
+        root = SCRIPT_PATH.parents[1]
+        source = next(
+            source for source in install_skills.load_sources(root)
+            if source.id == "humanizer"
+        )
+        skills = install_skills.discover_skills(source)
+        self.assertEqual([skill.name for skill in skills], ["humanizer"])
+        self.assertEqual(skills[0].path, root / "external/humanizer")
+        self.assertTrue((skills[0].path / "LICENSE").is_file())
+        self.assertTrue((skills[0].path / "agents/openai.yaml").is_file())
+        self.assertIn("Rewrite AI-sounding text", install_skills.read_description(skills[0]))
 
     def test_generated_catalog_matches_discovered_skills(self) -> None:
         root = SCRIPT_PATH.parents[1]

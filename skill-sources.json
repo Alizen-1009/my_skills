@@ -147,6 +147,15 @@
         "sglang-prod-incident-triage",
         "torch-profiler-layer-track"
       ]
+    },
+    {
+      "id": "humanizer",
+      "kind": "git-submodule",
+      "repo": "https://github.com/blader/humanizer.git",
+      "path": "external/humanizer",
+      "skills_path": ".",
+      "recursive": false,
+      "enabled": true
     }
   ]
 }
