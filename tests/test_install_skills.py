@@ -24,6 +24,7 @@ class CuratedSkillSetTest(unittest.TestCase):
         skills, warnings = install_skills.discover_all(SCRIPT_PATH.parents[1])
         names = {skill.name for skill in skills}
         excluded = {
+            "accessibility-engineering",
             "ask-matt",
             "benchmark-paper-template",
             "b200-pod",
@@ -75,9 +76,20 @@ class CuratedSkillSetTest(unittest.TestCase):
         self.assertEqual(warnings, [])
         self.assertTrue(excluded.isdisjoint(names))
         self.assertTrue(
-            {"drawio-reconstruction", "figure-designer", "teach"}.issubset(names)
+            {"blast-radius", "drawio-reconstruction", "figure-designer", "teach"}.issubset(names)
         )
-        self.assertEqual(len(skills), 56)
+        self.assertEqual(len(skills), 57)
+
+    def test_manual_skill_set_matches_trigger_guide(self) -> None:
+        skills, warnings = install_skills.discover_all(SCRIPT_PATH.parents[1])
+        self.assertEqual(warnings, [])
+        self.assertEqual(
+            {skill.name for skill in skills if install_skills.is_manual_only(skill)},
+            {
+                "blast-radius", "grill-with-docs", "wayfinder", "writing-beats",
+                "writing-fragments", "writing-shape", "handoff", "teach",
+            },
+        )
 
     def test_ai_infra_source_includes_nested_skills_and_pr_history(self) -> None:
         root = SCRIPT_PATH.parents[1]

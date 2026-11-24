@@ -1,6 +1,6 @@
 # Third-party inspirations
 
-The personal academic skills in `skills/` were written for this repository after reviewing the following upstream projects. They are compact adaptations of workflows and general principles; no upstream hooks, agent definitions, executable scripts, proprietary Office resources, or large reference bundles are included.
+The adapted personal skills in `skills/` were written for this repository after reviewing the following upstream projects. They are compact adaptations of workflows and general principles; no upstream hooks, agent definitions, executable scripts, proprietary Office resources, or large reference bundles are included.
 
 ## Research Writing Assistant
 
@@ -39,3 +39,14 @@ The upstream Office and scientific reference bundles are not included. Some embe
 - Ideas adapted: explicit diff envelopes, drive-by edit detection, proportional diff-size checks, concern separation, and reversibility review.
 
 The local version is a compact rewrite for this repository. It removes dependencies on the upstream constitution, scratchpad, auditor, and other Agent Skills Garden runtime conventions.
+
+## pstack — Blast Radius
+
+- Project: [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack)
+- Source skill: [`blast-radius`](https://github.com/cursor/plugins/blob/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack/skills/blast-radius/SKILL.md)
+- Reviewed revision: `005d8f6e8ec057b738adcd08a08b30db0478402d`
+- License: MIT
+- Author notice: Copyright (c) 2026 Lauren Tan
+- Ideas adapted: trace hidden downstream contracts and prove the assumptions a change's safety depends on with real-code checks.
+
+The local `skills/blast-radius/` adaptation retains explicit manual invocation and the upstream MIT notice. It removes dependencies on pstack's `how`, `why`, `arena`, and `unslop`, avoids mandatory multi-model reviews, and preserves this repository's authorization boundaries. It does not install the pstack plugin or track its updates automatically.

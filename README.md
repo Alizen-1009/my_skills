@@ -140,11 +140,40 @@ python3 scripts/install-skills.py --check-catalog
 
 The installer prunes a symlink only when its name is explicitly excluded in `skill-sources.json` and its target exactly matches that excluded source path. Other links, copied directories, and machine-managed skills are left untouched.
 
-Update upstream repositories intentionally, review the changes, and commit the new submodule revisions:
+Check upstream updates monthly or when a needed fix is available. Update one source at a time, not all submodules blindly. Start with a clean source worktree and preserve any existing local revision changes:
 
 ```bash
-git submodule update --remote --merge
+git -C external/<source> status --short
+git -C external/<source> fetch origin
+# Replace origin/main if the source uses a different default branch.
+git -C external/<source> log --oneline HEAD..origin/main
+git -C external/<source> diff HEAD origin/main
+# Only after reviewing the selected skills, their resources, and licensing:
+git -C external/<source> checkout --detach <reviewed-commit>
 ```
+
+Inspect new skills against `skill-sources.json`: exclusion-based sources can silently select newly added skills. Review executable resources, permissions, external actions, dependencies, and invocation metadata as well as prose. Keep the previous pin when a migration or licensing decision remains unresolved. Then regenerate/check the catalog, inspect `--dry-run`, and run relevant tests before committing the new submodule revision. A normal bootstrap restores recorded revisions; use it after the reviewed pins are committed, not during an uncommitted upgrade.
+
+Repository pins and installed copies are separate. After review, back up any installed-only edits before using `python3 scripts/install-skills.py --agent pi --force`; it replaces matching destinations. Reload or restart Pi afterward. See [SKILL_TRIGGERS.md](SKILL_TRIGGERS.md) for manual invocation and [UPSTREAM_REVIEW.md](UPSTREAM_REVIEW.md) for the latest update decisions.
+
+### 必须手动触发的技能
+
+以下 8 个技能配置了 `disable-model-invocation: true`，不会参与 Pi 的自动匹配。请显式使用对应命令，后面可以直接附上任务描述。
+
+| 技能 | Pi 命令 | 用途 |
+| --- | --- | --- |
+| blast-radius | `/skill:blast-radius` | 检查改动的隐性影响和下游风险 |
+| grill-with-docs | `/skill:grill-with-docs` | 深挖设计，同时记录术语和架构决策 |
+| wayfinder | `/skill:wayfinder` | 为跨会话的大任务建立决策地图 |
+| writing-fragments | `/skill:writing-fragments` | 通过访谈收集写作素材，暂不安排结构 |
+| writing-beats | `/skill:writing-beats` | 逐个选择和推进文章叙事节点 |
+| writing-shape | `/skill:writing-shape` | 将原始素材协作整理成文章 |
+| handoff | `/skill:handoff` | 生成供新会话接续的交接文档 |
+| teach | `/skill:teach` | 建立持续教学与学习记录工作区 |
+
+例如：`/skill:blast-radius 检查当前 diff 是否会影响其他模块`。
+
+其余技能可按任务自动匹配，也可以显式调用。`grilling` 需要表达深挖意愿，`doc-coauthoring` 的结构化流程需要用户接受，但两者不强制输入命令。完整说明和更新后核对方法见 [SKILL_TRIGGERS.md](SKILL_TRIGGERS.md)。
 
 ### AI infrastructure upstream
 

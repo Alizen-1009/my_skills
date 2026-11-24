@@ -2,13 +2,13 @@
 
 > 此文件由 `python3 scripts/install-skills.py --write-catalog` 自动生成，请勿手工维护。
 
-当前默认安装集共 **56** 个 Skills。
+当前默认安装集共 **57** 个 Skills。
 
 ## 来源统计
 
 | 来源 | 数量 |
 | --- | ---: |
-| local | 6 |
+| local | 7 |
 | https://github.com/mattpocock/skills | 16 |
 | https://github.com/addyosmani/agent-skills | 9 |
 | https://github.com/anthropics/skills | 11 |
@@ -25,6 +25,7 @@
 | --- | --- | --- |
 | `academic-peer-review` | 自动或手动 | Diagnose academic manuscript quality, methodology, statistics, or revision completeness when the user requests peer review or publication-readiness assessment. Read-only unless revision is requested. |
 | `academic-writing` | 自动或手动 | Draft, revise, translate, or polish academic manuscript prose and reviewer responses without inventing evidence. For source searching or diagnostic peer review, use the corresponding skill. |
+| `blast-radius` | **仅手动调用**：`/skill:blast-radius` | Audit a change's hidden downstream risks and test the assumptions its safety depends on. |
 | `find-unknowns` | 自动或手动 | Surface consequential unknowns when requirements keep changing, preferences are hard to express, or the user requests a discovery or blindspot pass. |
 | `literature-review` | 自动或手动 | Search and synthesize academic literature, identify research gaps, or verify scholarly citations and claim support. Match quick, narrative, scoping, or systematic review depth to the request. |
 | `minimal-diff` | 自动或手动 | Audit patch scope and reversibility when the user requests a minimal diff or a change is expanding beyond its intended scope. |
@@ -62,7 +63,7 @@
 | `idea-refine` | 自动或手动 | Refines raw ideas into sharp, actionable concepts through structured divergent and convergent thinking. Use when an idea is still vague, when you need to stress-test assumptions before committing to a plan, or when you want to expand options before converging on one. Triggers on "ideate", "refine this idea", or "stress-test my plan". |
 | `observability-and-instrumentation` | 自动或手动 | Instruments code so production behavior is visible and diagnosable. Use when adding logging, metrics, tracing, or alerting. Use when shipping any feature that runs in production and you need evidence it works. Use when production issues are reported but you can't tell what happened from the available data. |
 | `performance-optimization` | 自动或手动 | Optimizes application performance across frontend, backend, queries, and databases. Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement, when N+1 query patterns need fixing, or when profiling reveals bottlenecks. |
-| `security-and-hardening` | 自动或手动 | Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved. |
+| `security-and-hardening` | 自动或手动 | Hardens code against vulnerabilities. Use when auditing an input handler for vulnerabilities, when handling user input, authentication, data storage, or external integrations, or when checking a login flow is safe against the OWASP Top Ten. Use when building any feature that accepts untrusted data, manages user sessions or session cookies, or interacts with third-party services. Use when auditing dependencies for known vulnerabilities, triaging package-manager audit findings, or assessing supply-chain risk in a new package. Use when personal data or privacy compliance (GDPR, CCPA) is involved. |
 | `shipping-and-launch` | 自动或手动 | Prepares production launches. Use when preparing to deploy to production, or when asking what needs to be in place before shipping. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a rollback strategy. |
 
 ### https://github.com/anthropics/skills
